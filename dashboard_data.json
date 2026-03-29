@@ -3,7 +3,7 @@
     "workbookName": "Munya_Kristo_Scorecard_FINAL.xlsm",
     "workbookPath": "C:\\Users\\Dell\\OneDrive\\09. CT Senior Team Shared\\Objectives\\2026\\Munya\\Munya_Kristo_Scorecard_FINAL.xlsm",
     "workbookUpdatedAt": "2026-03-29T12:35:45",
-    "generatedAt": "2026-03-29T14:10:59.453786",
+    "generatedAt": "2026-03-29T15:56:10.359490",
     "publishedFrom": "C:\\Users\\Dell\\OneDrive\\09. CT Senior Team Shared\\Objectives\\2026\\Munya"
   },
   "kpi": {
@@ -11,73 +11,85 @@
       "name": "Stock Transfer Compliance",
       "target": 100.0,
       "ave": 100.0,
-      "current": 100.0
+      "current": 100.0,
+      "priorYear": null
     },
     "scanning": {
       "name": "Scanning Compliance",
       "target": 100.0,
       "ave": 100.0,
-      "current": 100.0
+      "current": 100.0,
+      "priorYear": null
     },
     "sheets": {
       "name": "Filling Out Sheets",
       "target": 100.0,
       "ave": 99.97,
-      "current": 99.91
+      "current": 99.91,
+      "priorYear": null
     },
     "dispatch": {
       "name": "Dispatch Accuracy",
       "target": 99.3,
       "ave": 99.45,
-      "current": 99.62
+      "current": 99.62,
+      "priorYear": 99.04
     },
     "truckLoading": {
       "name": "Truck Loading Accuracy",
       "target": 99.5,
       "ave": 99.54,
-      "current": 99.84
+      "current": 99.84,
+      "priorYear": 97.02
     },
     "stockCount": {
       "name": "Stock Count Accuracy",
       "target": 99.0,
       "ave": 99.15,
-      "current": 100.0
+      "current": 100.0,
+      "priorYear": 98.46
     },
     "localParts": {
       "name": "Local Parts Availability",
       "target": 98.0,
       "ave": 92.81,
-      "current": 91.1
+      "current": 91.1,
+      "priorYear": null
     },
     "liseoRTB": {
       "name": "Liseo Assembled - Ready to Buy",
       "target": 85.0,
       "ave": 74.76,
-      "current": 68.75
+      "current": 68.75,
+      "priorYear": null
     },
     "coverPlates": {
       "name": "Cover Plates - No Delays",
       "target": 100.0,
       "ave": 90.0,
-      "current": 100.0
+      "current": 100.0,
+      "priorYear": null
     },
     "liseoIssues": {
       "name": "Liseo Issues - Improve YoY",
       "target": 95.0,
       "ave": 100.0,
-      "current": 100.0
+      "current": 100.0,
+      "priorYear": 21.0
     },
     "tkOdo": {
       "name": "Takealot & ODO Performance",
       "target": 60.0,
       "ave": 151.91,
-      "current": 156.4
+      "current": 156.4,
+      "priorYear": null
     },
     "monthlySC": {
       "name": "Monthly Stock Counts",
       "target": 100.0,
       "ave": 50.0,
-      "current": 50.0
+      "current": 50.0,
+      "priorYear": null
     }
   },
   "scorecard": {
@@ -137,6 +149,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Record issues where procedure was not followed",
         "key": "stockTransfer"
       },
@@ -171,6 +184,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Record issues where procedure was not followed",
         "key": "scanning"
       },
@@ -205,6 +219,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Record issues where procedure was not followed",
         "key": "sheets"
       },
@@ -239,6 +254,7 @@
           null,
           null
         ],
+        "priorYear": 99.04,
         "comments": "2025 was 99.04%",
         "key": "dispatch"
       },
@@ -273,6 +289,7 @@
           null,
           null
         ],
+        "priorYear": 97.02,
         "comments": "2025 was 97.02%",
         "key": "truckLoading"
       },
@@ -307,6 +324,7 @@
           null,
           null
         ],
+        "priorYear": 98.46,
         "comments": "2025 was 98.46%",
         "key": "stockCount"
       },
@@ -341,6 +359,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Record backordered sales",
         "key": "localParts"
       },
@@ -375,6 +394,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Record backordered sales",
         "key": "liseoRTB"
       },
@@ -409,6 +429,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Recorded delays on Google Sheets",
         "key": "coverPlates"
       },
@@ -443,6 +464,7 @@
           null,
           null
         ],
+        "priorYear": 21.0,
         "comments": "2025 had 21 issues. 2026 target < 15",
         "key": "liseoIssues"
       },
@@ -477,6 +499,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "2 Documented improvements per 2 weeks. Evidence: photo/video/doc",
         "key": null
       },
@@ -511,6 +534,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "60% growth on 2025",
         "key": "tkOdo"
       },
@@ -545,6 +569,7 @@
           null,
           null
         ],
+        "priorYear": null,
         "comments": "Count 87A and Liseo each month",
         "key": "monthlySC"
       }
