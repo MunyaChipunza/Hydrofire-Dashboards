@@ -1,9 +1,9 @@
 name: Update Dashboard Data
 
 on:
-  repository_dispatch:
-    types:
-      - dashboard_update
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   update-dashboard-json:
@@ -15,21 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Write dashboard_data.json
-        env:
-          DASHBOARD_JSON: ${{ toJson(github.event.client_payload.dashboard_data) }}
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-          payload = json.loads(os.environ["DASHBOARD_JSON"])
-          Path("dashboard_data.json").write_text(
-              json.dumps(payload, ensure_ascii=False, indent=2),
-              encoding="utf-8",
-          )
-          PY
+      - name: Refresh dashboard_data.json from workbook link
+        env:
+          WORKBOOK_URL: ${{ secrets.WORKBOOK_URL }}
+        run: python scripts/refresh_dashboard_data.py
 
       - name: Commit updated dashboard data
         run: |
