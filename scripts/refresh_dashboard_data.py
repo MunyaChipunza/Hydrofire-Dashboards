@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import base64
 import urllib.parse
 import urllib.request
 import zipfile
@@ -37,6 +38,91 @@ def candidate_urls(url: str) -> list[str]:
     if hinted != url:
         candidates.append(hinted)
     return candidates
+
+
+def share_token(url: str) -> str:
+    raw = base64.b64encode(url.encode("utf-8")).decode("ascii").rstrip("=")
+    return "u!" + raw.replace("/", "_").replace("+", "-")
+
+
+def request_json(url: str, headers: dict[str, str] | None = None, data: bytes | None = None) -> dict:
+    request = urllib.request.Request(url, headers=headers or {}, data=data)
+    with urllib.request.urlopen(request) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def request_bytes(url: str, headers: dict[str, str] | None = None) -> bytes:
+    request = urllib.request.Request(url, headers=headers or {})
+    with urllib.request.urlopen(request) as response:
+        return response.read()
+
+
+def find_download_url(payload):
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if "downloadurl" in key.lower() and isinstance(value, str) and value.startswith("http"):
+                return value
+            found = find_download_url(value)
+            if found:
+                return found
+    elif isinstance(payload, list):
+        for item in payload:
+            found = find_download_url(item)
+            if found:
+                return found
+    return None
+
+
+def onedrive_badger_headers() -> dict[str, str]:
+    token_payload = request_json(
+        "https://api-badgerp.svc.ms/v1.0/token",
+        headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"},
+        data=json.dumps({"appId": "5cbed6ac-a083-4e14-b191-b4ba07653de2"}).encode("utf-8"),
+    )
+    token = token_payload.get("token")
+    if not token:
+        raise RuntimeError("Could not get OneDrive public access token.")
+    return {
+        "Authorization": f"Badger {token}",
+        "Prefer": "autoredeem",
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/json, */*",
+    }
+
+
+def download_onedrive_share(source: str, target_dir: Path) -> Path:
+    token = share_token(source)
+    headers = onedrive_badger_headers()
+    metadata = request_json(f"https://api.onedrive.com/v1.0/shares/{token}/driveItem", headers=headers)
+
+    download_url = find_download_url(metadata)
+    if download_url:
+        data = request_bytes(download_url, headers={"User-Agent": "Mozilla/5.0"})
+        filename = metadata.get("name") or "downloaded_workbook.xlsm"
+        if not filename.lower().endswith((".xlsx", ".xlsm")):
+            filename = f"{Path(filename).stem or 'downloaded_workbook'}.xlsm"
+        target = target_dir / filename
+        target.write_bytes(data)
+        ensure_excel_file(target)
+        return target
+
+    for content_url in (
+        f"https://api.onedrive.com/v1.0/shares/{token}/driveItem/content",
+        f"https://api.onedrive.com/v1.0/shares/{token}/root/content",
+    ):
+        try:
+            data = request_bytes(content_url, headers=headers)
+            filename = metadata.get("name") or "downloaded_workbook.xlsm"
+            if not filename.lower().endswith((".xlsx", ".xlsm")):
+                filename = f"{Path(filename).stem or 'downloaded_workbook'}.xlsm"
+            target = target_dir / filename
+            target.write_bytes(data)
+            ensure_excel_file(target)
+            return target
+        except Exception:
+            continue
+
+    raise RuntimeError("OneDrive share metadata loaded, but no downloadable workbook URL was available.")
 
 
 def local_copy(source: str, target_dir: Path) -> Path | None:
@@ -99,6 +185,13 @@ def download_workbook(source: str, target_dir: Path) -> Path:
                 target.write_bytes(data)
                 ensure_excel_file(target)
                 return target
+        except Exception as exc:  # pragma: no cover - exercised in GitHub Actions
+            last_error = exc
+
+    source_lower = source.lower()
+    if "1drv.ms" in source_lower or "onedrive.live.com" in source_lower:
+        try:
+            return download_onedrive_share(source, target_dir)
         except Exception as exc:  # pragma: no cover - exercised in GitHub Actions
             last_error = exc
 
