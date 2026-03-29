@@ -1,10 +1,10 @@
 {
   "meta": {
     "workbookName": "Munya_Kristo_Scorecard_FINAL.xlsm",
-    "workbookPath": "C:\\Users\\Dell\\OneDrive\\09. CT Senior Team Shared\\Objectives\\2026\\Munya\\Munya_Kristo_Scorecard_FINAL.xlsm",
-    "workbookUpdatedAt": "2026-03-29T12:35:45",
-    "generatedAt": "2026-03-29T15:56:10.359490",
-    "publishedFrom": "C:\\Users\\Dell\\OneDrive\\09. CT Senior Team Shared\\Objectives\\2026\\Munya"
+    "workbookPath": "C:\\Users\\Dell\\OneDrive\\09. CT Senior Team Shared\\Objectives\\2026\\Munya\\code\\github-upload\\.tmp_workbook\\Munya_Kristo_Scorecard_FINAL.xlsm",
+    "workbookUpdatedAt": "2026-03-29T16:39:32",
+    "generatedAt": "2026-03-29T16:48:26.856150",
+    "publishedFrom": "C:\\Users\\Dell\\OneDrive\\09. CT Senior Team Shared\\Objectives\\2026\\Munya\\Munya_Kristo_Scorecard_FINAL.xlsm"
   },
   "kpi": {
     "stockTransfer": {
@@ -87,8 +87,8 @@
     "monthlySC": {
       "name": "Monthly Stock Counts",
       "target": 100.0,
-      "ave": 50.0,
-      "current": 50.0,
+      "ave": 75.0,
+      "current": 100.0,
       "priorYear": null
     }
   },
@@ -543,8 +543,8 @@
         "number": "14",
         "name": "Monthly Stock Counts",
         "target": 100.0,
-        "ave": 50.0,
-        "current": 50.0,
+        "ave": 75.0,
+        "current": 100.0,
         "history": [
           100.0,
           100.0,
@@ -814,8 +814,8 @@
       "a87": false
     },
     {
-      "liseo": false,
-      "a87": false
+      "liseo": true,
+      "a87": true
     },
     {
       "liseo": false,
