@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munya & Kristo - Live Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(255, 52, 90, 0.18), transparent 32%),
+                radial-gradient(circle at top right, rgba(255, 132, 56, 0.10), transparent 28%),
+                linear-gradient(180deg, #070709, #111114 55%, #09090b);
+            color: #f5efeb;
+            padding: 18px;
+            min-height: 100vh;
+        }
+        .wrap { max-width: 1600px; margin: 0 auto; }
+        .panel {
+            background: linear-gradient(180deg, rgba(22, 22, 26, 0.98), rgba(12, 12, 15, 0.98));
+            border: 1px solid #33282c;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+        }
+        .header {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(7, 7, 9, 0.98), rgba(63, 10, 19, 0.96) 62%, rgba(128, 14, 33, 0.92));
+            border-color: #5a1a24;
+        }
+        .header::after {
+            content: "";
+            position: absolute;
+            right: -40px;
+            top: -60px;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(255, 103, 134, 0.20), transparent 68%);
+            pointer-events: none;
+        }
+        .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+        h1 { font-size: 30px; margin-bottom: 6px; text-shadow: 0 0 16px rgba(255, 98, 117, 0.18); }
+        .sub { font-size: 13px; color: #e8d9d0; }
+        .badge { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 6px 14px; border: 1px solid #86c58f; color: #86c58f; background: rgba(134,197,143,.12); font-size: 12px; font-weight: 700; }
+        .badge.warn { border-color: #ffd54f; color: #ffd54f; background: rgba(255,213,79,.12); }
+        .badge.err { border-color: #ef5350; color: #ef5350; background: rgba(239,83,80,.12); }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+        .meta { text-align: right; font-size: 12px; color: rgba(255,255,255,.84); }
+        .meta strong, .meta span { display: block; }
+        .btn {
+            border: 1px solid rgba(255, 108, 118, 0.45);
+            background: linear-gradient(135deg, rgba(255, 108, 118, 0.22), rgba(255, 108, 118, 0.08));
+            color: #fff;
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(120, 12, 27, 0.25);
+        }
+        .btn:hover { background: linear-gradient(135deg, rgba(255, 108, 118, 0.28), rgba(255, 108, 118, 0.12)); }
+        .note { margin-top: 14px; border-radius: 10px; padding: 11px 13px; font-size: 12px; font-weight: 600; background: rgba(255,255,255,.06); color: #f0ece8; border: 1px solid rgba(255, 255, 255, 0.04); }
+        .note.err { background: rgba(239,83,80,.16); color: #ffd6d5; }
+        .title { color: #ff6b74; text-transform: uppercase; letter-spacing: 1px; font-size: 15px; font-weight: 800; padding-bottom: 10px; border-bottom: 2px solid #442a30; margin-bottom: 14px; }
+        .hint { margin-top: -4px; margin-bottom: 12px; color: #b8b1a8; font-size: 12px; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+        .card {
+            background: linear-gradient(180deg, #191b20, #111217);
+            border: 1px solid #373037;
+            border-left: 4px solid #7d818e;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .card.good { border-left-color: #39ff88; } .card.warn { border-left-color: #ffb347; } .card.bad { border-left-color: #ff5a66; }
+        .label { font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: #c6beb2; min-height: 28px; font-weight: 700; }
+        .value { font-size: 28px; font-weight: 800; margin: 8px 0 4px; } .value.good { color: #39ff88; } .value.warn { color: #ffb347; } .value.bad { color: #ff5a66; }
+        .small { font-size: 11px; color: #a9a39c; } .tiny { margin-top: 8px; padding-top: 8px; border-top: 1px solid #4d5157; font-size: 10px; color: #8f8a84; }
+        .scroll { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
+        th, td { border-bottom: 1px solid #34363a; padding: 10px; text-align: center; font-size: 13px; }
+        th { background: #111214; color: #ff646b; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; position: sticky; top: 0; }
+        .sticky1, .sticky2 { position: sticky; background: #17181b; z-index: 1; }
+        th.sticky1, th.sticky2 { background: #1b1d20; z-index: 2; }
+        .sticky1 { left: 0; min-width: 54px; } .sticky2 { left: 54px; min-width: 250px; text-align: left; }
+        .kpiCell { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; } .kpiCell strong { font-size: 13px; } .kpiCell span { color: #a8a29c; font-size: 11px; }
+        .comment { min-width: 220px; max-width: 280px; text-align: left; color: #b2aba2; font-size: 12px; }
+        .pill { display: inline-block; min-width: 68px; border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700; }
+        .pill.good { background: rgba(102,187,106,.18); color: #8fe695; }
+        .pill.warn { background: rgba(255,183,77,.18); color: #ffd08a; }
+        .pill.bad { background: rgba(239,83,80,.18); color: #ffb4b2; }
+        .pill.neutral { background: rgba(143,150,176,.15); color: #d2d8ef; }
+        .progress { margin-top: 14px; height: 6px; border-radius: 999px; overflow: hidden; background: #303238; } .fill { height: 100%; width: 0; background: linear-gradient(90deg, #ff5663, #ffbd45); }
+        .progressText { margin-top: 8px; text-align: right; color: #a49f98; font-size: 11px; }
+        .chartGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+        .chartBox {
+            background: linear-gradient(180deg, rgba(26, 27, 33, 0.98), rgba(16, 17, 22, 0.98));
+            border: 1px solid #393139;
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .chartTitle { color: #ff6b74; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+        .chartWrap { position: relative; height: 260px; }
+        .empty { padding: 24px; text-align: center; color: #b7afa5; font-size: 13px; }
+        @media (max-width: 900px) { .meta { text-align: left; } .chartGrid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 24px; } }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="panel header">
+        <div class="row">
+            <div>
+                <h1>MUNYA & KRISTO - FORTNIGHTLY SCORECARD</h1>
+                <div class="sub">Engineering &amp; Operations | 92 Marine Drive | Hydrofire</div>
+            </div>
+            <div>
+                <div class="badge" id="badge"><span class="dot"></span><span id="badgeText">WAITING</span></div>
+                <div class="meta">
+                    <strong id="savedAt">Waiting for workbook</strong>
+                    <span id="sourceName">Source: -</span>
+                    <span id="syncedAt">Last sync: -</span>
+                </div>
+                <div style="margin-top:10px;display:flex;gap:10px;align-items:center;">
+                    <button class="btn" onclick="manualRefresh()">Refresh Now</button>
+                    <span style="font-size:11px;color:rgba(255,255,255,.65);" id="countdown">Next refresh in 5s</span>
+                </div>
+            </div>
+        </div>
+        <div class="note" id="note">Loading hosted dashboard...</div>
+    </div>
+
+    <div class="panel">
+        <div class="title">Key Performance Indicators</div>
+        <div class="cards" id="kpis"></div>
+    </div>
+
+    <div class="panel">
+        <div class="title">KPI Charts</div>
+        <div class="hint">Each chart shows the current trend, target line, and 2025 benchmark where the workbook provides one.</div>
+        <div class="chartGrid" id="chartGrid"></div>
+    </div>
+</div>
+
+<script>
+const REFRESH_SEC = 60;
+const API_URL = "./dashboard_data.json";
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const COLORS = {
+    green: "#32ff6a",
+    orange: "#ffb000",
+    red: "#ff2d55",
+    blue: "#00cfff",
+    purple: "#b100ff",
+    yellow: "#fff200",
+    teal: "#00ffd9",
+    lime: "#c2ff00",
+    prior: "#ff6cf2"
+};
+let state = null;
+let secs = REFRESH_SEC;
+let timer = null;
+let busy = false;
+let charts = [];
+
+function esc(v) { return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+function fmtPct(v) { return v === null || v === undefined || Number.isNaN(Number(v)) ? "-" : `${Number(v).toFixed(1)}%`; }
+function fmtDate(v) { try { return v ? new Intl.DateTimeFormat("en-ZA",{dateStyle:"medium",timeStyle:"medium",timeZone:"Africa/Johannesburg"}).format(new Date(v)) : "-"; } catch { return v || "-"; } }
+function metric(v, t) { if (v === null || v === undefined || t === null || t === undefined) return "neutral"; if (v >= t) return "good"; if (v >= t * 0.95) return "warn"; return "bad"; }
+function mean(arr) { const nums = (arr || []).filter(v => v !== null && v !== undefined); return nums.length ? nums.reduce((a, b) => a + Number(b), 0) / nums.length : null; }
+function latest(arr) { for (let i = (arr || []).length - 1; i >= 0; i -= 1) if (arr[i] !== null && arr[i] !== undefined) return arr[i]; return null; }
+function filterSeries(arr) { const labels = [], values = []; (arr || []).forEach((v, i) => { if (v !== null && v !== undefined) { labels.push(i); values.push(v); } }); return { labels, values }; }
+function monthlyStockCountSeries(arr) { return (arr || []).map(row => row ? ((row.liseo ? 1 : 0) + (row.a87 ? 1 : 0)) * 50 : 0); }
+function barColors(values, target) { return (values || []).map(v => metric(v, target) === "good" ? COLORS.green : metric(v, target) === "warn" ? COLORS.orange : COLORS.red); }
+function requestUrl() { return `${API_URL}${API_URL.includes("?") ? "&" : "?"}ts=${Date.now()}`; }
+function flatLine(label, value, length, color, dash = [2, 6]) { return { type: "line", label, data: new Array(length).fill(value), borderColor: color, borderDash: dash, borderWidth: 3, fill: false, pointRadius: 0, spanGaps: true }; }
+
+function setStatus(kind, message) {
+    const badge = document.getElementById("badge");
+    const text = document.getElementById("badgeText");
+    const note = document.getElementById("note");
+    badge.className = kind === "err" ? "badge err" : kind === "warn" ? "badge warn" : "badge";
+    text.textContent = kind === "err" ? "ERROR" : kind === "warn" ? "SYNCING" : "LIVE";
+    note.className = kind === "err" ? "note err" : "note";
+    note.textContent = message;
+}
+
+function showMeta() {
+    if (!state?.meta) return;
+    document.getElementById("savedAt").textContent = `Workbook saved: ${fmtDate(state.meta.workbookUpdatedAt)}`;
+    document.getElementById("sourceName").textContent = `Source: ${state.meta.workbookName}`;
+    document.getElementById("syncedAt").textContent = `Last sync: ${fmtDate(state.meta.generatedAt)}`;
+}
+
+function renderKpis() {
+    const host = document.getElementById("kpis");
+    const items = [];
+    if (state?.kpi) {
+        Object.entries(state.kpi).forEach(([key, kpi]) => {
+            if (key === "truckLoading") {
+                items.push({ name: "JHB Truck Loading", target: kpi.target, ave: mean(state.truckJHB), current: latest(state.truckJHB) });
+                items.push({ name: "George Truck Loading", target: kpi.target, ave: mean(state.truckGeorge), current: latest(state.truckGeorge) });
+            } else {
+                items.push(kpi);
+            }
+        });
+    }
+    if (!items.length) { host.innerHTML = '<div class="empty">No KPI data available yet.</div>'; return; }
+    host.innerHTML = items.map(k => {
+        const s = metric(k.current, k.target);
+        return `<div class="card ${s}">
+            <div class="label">${esc(k.name)}</div>
+            <div class="value ${s}">${fmtPct(k.current)}</div>
+            <div class="small">Target: ${fmtPct(k.target)}</div>
+            <div class="tiny">Ave YTD: ${fmtPct(k.ave)}</div>
+        </div>`;
+    }).join("");
+}
+
+function destroyCharts() { charts.forEach(chart => chart.destroy()); charts = []; }
+
+function chartHost(title) {
+    const box = document.createElement("div");
+    box.className = "chartBox";
+    box.innerHTML = `<div class="chartTitle">${esc(title)}</div><div class="chartWrap"><canvas></canvas></div>`;
+    document.getElementById("chartGrid").appendChild(box);
+    return box.querySelector("canvas").getContext("2d");
+}
+
+function addChart(title, type, labels, datasets, extraScales = {}) {
+    const ctx = chartHost(title);
+    const chart = new Chart(ctx, {
+        type,
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: "#ece8e1", font: { size: 11 }, usePointStyle: true, pointStyle: "line" } } },
+            scales: {
+                y: { ticks: { color: "#bdb6ad" }, grid: { color: "rgba(102, 107, 116, 0.36)" }, ...extraScales.y },
+                x: { ticks: { color: "#bdb6ad" }, grid: { color: "rgba(102, 107, 116, 0.20)" }, ...extraScales.x }
+            }
+        }
+    });
+    charts.push(chart);
+}
+
+function addMonthlyBar(title, values, target, priorYearValue = null, priorYearLabel = "2025 Avg") {
+    const s = filterSeries(values);
+    if (!s.values.length) return;
+    const datasets = [
+        { label: "Actual %", data: s.values, backgroundColor: barColors(s.values, target), borderWidth: 0 },
+        flatLine(`Target (${fmtPct(target)})`, target, s.values.length, COLORS.yellow, [6, 4])
+    ];
+    if (priorYearValue !== null && priorYearValue !== undefined) {
+        datasets.push(flatLine(`${priorYearLabel} (${fmtPct(priorYearValue)})`, priorYearValue, s.values.length, COLORS.prior));
+    }
+    addChart(title, "bar", s.labels.map(i => MONTHS[i]), datasets);
+}
+
+function addMonthlyLine(title, values, target, averageValue, actualLabel = "Actual %", actualColor = COLORS.blue, priorYearValue = null, priorYearLabel = "2025 Avg") {
+    const s = filterSeries(values);
+    if (!s.values.length) return;
+    const datasets = [
+        { label: actualLabel, data: s.values, borderColor: actualColor, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: actualColor },
+        flatLine(`Target (${fmtPct(target)})`, target, s.values.length, COLORS.yellow, [6, 4])
+    ];
+    if (priorYearValue !== null && priorYearValue !== undefined) {
+        datasets.push(flatLine(`${priorYearLabel} (${fmtPct(priorYearValue)})`, priorYearValue, s.values.length, COLORS.prior));
+    }
+    if (averageValue !== null && averageValue !== undefined) {
+        datasets.push(flatLine(`Average (${fmtPct(averageValue)})`, averageValue, s.values.length, COLORS.purple, [3, 4]));
+    }
+    addChart(title, "line", s.labels.map(i => MONTHS[i]), datasets);
+}
+
+function renderCharts() {
+    const host = document.getElementById("chartGrid");
+    destroyCharts();
+    host.innerHTML = "";
+    if (!state) { host.innerHTML = '<div class="empty">Waiting for chart data.</div>'; return; }
+    if (typeof Chart === "undefined") { host.innerHTML = '<div class="empty">Chart library did not load.</div>'; return; }
+
+    addMonthlyBar("Stock Transfer Compliance", state.trCompliance, state.kpi?.stockTransfer?.target ?? 100);
+    addMonthlyBar("Scanning Compliance", state.scanning, state.kpi?.scanning?.target ?? 100);
+    addMonthlyLine("Filling Out Sheets", state.sheetsCompliance, state.kpi?.sheets?.target ?? 100, null, "Actual %", COLORS.teal);
+    addMonthlyLine("Dispatch Accuracy", state.dispatchAccuracy, state.kpi?.dispatch?.target ?? 99.3, null, "Actual %", COLORS.green, state.kpi?.dispatch?.priorYear);
+
+    const maxLoads = Math.max((state.truckJHB || []).length, (state.truckGeorge || []).length);
+    if (maxLoads) {
+        addChart("Truck Loading Accuracy - JHB vs George", "line", Array.from({ length: maxLoads }, (_, i) => `Load ${i + 1}`), [
+            { label: "JHB %", data: state.truckJHB, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
+            { label: "George %", data: state.truckGeorge, borderColor: COLORS.lime, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.lime, spanGaps: true },
+            flatLine(`Target (${fmtPct(state.kpi?.truckLoading?.target ?? 99.5)})`, state.kpi?.truckLoading?.target ?? 99.5, maxLoads, COLORS.yellow, [6, 4]),
+            ...(state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.truckLoading.priorYear)})`, state.kpi.truckLoading.priorYear, maxLoads, COLORS.prior)] : [])
+        ]);
+    }
+
+    const maxWeeks = Math.max((state.stockCount1st || []).length, (state.stockCountFinal || []).length);
+    if (maxWeeks) {
+        addChart("Stock Count Accuracy", "line", Array.from({ length: maxWeeks }, (_, i) => `Wk ${i + 2}`), [
+            { label: "1st Count %", data: state.stockCount1st, borderColor: COLORS.red, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.red, spanGaps: true },
+            { label: "Final Count %", data: state.stockCountFinal, borderColor: COLORS.teal, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.teal, spanGaps: true },
+            flatLine(`Target (${fmtPct(state.kpi?.stockCount?.target ?? 99)})`, state.kpi?.stockCount?.target ?? 99, maxWeeks, COLORS.yellow, [6, 4]),
+            ...(state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.stockCount.priorYear)})`, state.kpi.stockCount.priorYear, maxWeeks, COLORS.prior)] : [])
+        ]);
+    }
+
+    addMonthlyLine("Local Parts Availability", state.localParts, state.kpi?.localParts?.target ?? 98, state.kpi?.localParts?.ave, "Current %", COLORS.blue);
+    addMonthlyLine("Liseo Assembled Ready to Buy", state.liseoRTB, state.kpi?.liseoRTB?.target ?? 85, state.kpi?.liseoRTB?.ave, "Current %", COLORS.purple);
+    addMonthlyLine("Cover Plates", state.coverplates, state.kpi?.coverPlates?.target ?? 100, state.kpi?.coverPlates?.ave, "Current %", COLORS.orange);
+
+    const tkTarget = state.kpi?.tkOdo?.target ?? 60;
+    const tkTargetSeries = (state.tk2025 || []).map(v => v === null || v === undefined ? null : Number((v * (1 + (tkTarget / 100))).toFixed(2)));
+    if ((state.tk2025 || []).some(v => v !== null && v !== undefined) || (state.tk2026 || []).some(v => v !== null && v !== undefined) || (state.odo2026 || []).some(v => v !== null && v !== undefined)) {
+        addChart("Takealot & One Day Only", "line", MONTHS, [
+            { label: "2025", data: state.tk2025, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
+            { label: "Target", data: tkTargetSeries, borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0, spanGaps: true },
+            { label: "2026", data: state.tk2026, borderColor: COLORS.green, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.green, spanGaps: true },
+            { label: "One Day Only", data: state.odo2026, borderColor: COLORS.purple, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.purple, spanGaps: true }
+        ]);
+    }
+
+    const issues = filterSeries(state.liseoIssues);
+    if (issues.values.length) {
+        addChart("Liseo Issues (Lower Is Better)", "bar", issues.labels.map(i => MONTHS[i]), [
+            { label: "Issues", data: issues.values, backgroundColor: issues.values.map(v => v === 0 ? COLORS.green : v <= 2 ? COLORS.orange : COLORS.red), borderWidth: 0 },
+            { type: "line", label: "Target (0 issues)", data: new Array(issues.values.length).fill(0), borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0 }
+        ], { y: { beginAtZero: true } });
+    }
+
+    addMonthlyBar("Monthly Stock Counts", monthlyStockCountSeries(state.monthlySC), state.kpi?.monthlySC?.target ?? 100);
+
+    if (!host.children.length) host.innerHTML = '<div class="empty">No chart data available yet.</div>';
+}
+
+function render() { renderKpis(); renderCharts(); showMeta(); }
+
+async function refresh() {
+    if (busy) return;
+    busy = true;
+    setStatus("warn", "Syncing live workbook data...");
+    try {
+        const res = await fetch(requestUrl(), { cache: "no-store" });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
+        state = data;
+        render();
+        if (data.meta?.stale) {
+            setStatus("warn", "Workbook is busy saving. Showing the last good data for a moment.");
+        } else {
+            setStatus("", "Live workbook sync is active.");
+        }
+    } catch (err) {
+        setStatus("err", 'Live sync unavailable. Restart the launcher if needed, then try again.');
+        if (!state) {
+            document.getElementById("kpis").innerHTML = '<div class="empty">No data loaded yet.</div>';
+            document.getElementById("chartGrid").innerHTML = '<div class="empty">Start the local server to load the KPI charts.</div>';
+        }
+    } finally {
+        busy = false;
+        secs = REFRESH_SEC;
+        updateCountdown();
+    }
+}
+
+function updateCountdown() { document.getElementById("countdown").textContent = `Next refresh in ${secs}s`; }
+function manualRefresh() { refresh(); }
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateCountdown();
+    refresh();
+    timer = setInterval(() => {
+        secs -= 1;
+        if (secs <= 0) refresh();
+        updateCountdown();
+    }, 1000);
+});
+</script>
+</body>
+</html>
