@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-03-30T09:25:22.476429",
-    "generatedAt": "2026-03-30T09:25:22.488891",
+    "workbookUpdatedAt": "2026-03-30T10:44:36.565952",
+    "generatedAt": "2026-03-30T10:44:36.579681",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -87,8 +87,8 @@
     "monthlySC": {
       "name": "Monthly Stock Counts",
       "target": 100.0,
-      "ave": 75.0,
-      "current": 100.0,
+      "ave": 50.0,
+      "current": 50.0,
       "priorYear": null
     }
   },
@@ -543,8 +543,8 @@
         "number": "14",
         "name": "Monthly Stock Counts",
         "target": 100.0,
-        "ave": 75.0,
-        "current": 100.0,
+        "ave": 50.0,
+        "current": 50.0,
         "history": [
           100.0,
           100.0,
@@ -814,8 +814,8 @@
       "a87": false
     },
     {
-      "liseo": true,
-      "a87": true
+      "liseo": false,
+      "a87": false
     },
     {
       "liseo": false,
