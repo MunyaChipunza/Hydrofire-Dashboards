@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-03-30T14:13:26.039292",
-    "generatedAt": "2026-03-30T14:13:26.052668",
+    "workbookUpdatedAt": "2026-03-30T15:42:44.683099",
+    "generatedAt": "2026-03-30T15:42:44.696717",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -59,8 +59,8 @@
     "liseoRTB": {
       "name": "Liseo Assembled - Ready to Buy",
       "target": 85.0,
-      "ave": 74.76,
-      "current": 68.75,
+      "ave": 77.72,
+      "current": 79.31,
       "priorYear": null
     },
     "coverPlates": {
@@ -368,8 +368,8 @@
         "number": "8",
         "name": "Liseo Assembled - Ready to Buy",
         "target": 85.0,
-        "ave": 74.76,
-        "current": 68.75,
+        "ave": 77.72,
+        "current": 79.31,
         "history": [
           76.19,
           65.38,
@@ -708,9 +708,9 @@
     null
   ],
   "liseoRTB": [
-    null,
-    80.77,
-    68.75,
+    92.31,
+    61.54,
+    79.31,
     null,
     null,
     null,
