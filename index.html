@@ -163,6 +163,7 @@ const COLORS = {
     prior: "#ff6cf2"
 };
 let state = null;
+let lastFetchedAt = null;
 let secs = REFRESH_SEC;
 let timer = null;
 let busy = false;
@@ -194,7 +195,7 @@ function showMeta() {
     if (!state?.meta) return;
     document.getElementById("savedAt").textContent = `Workbook saved: ${fmtDate(state.meta.workbookUpdatedAt)}`;
     document.getElementById("sourceName").textContent = `Source: ${state.meta.workbookName}`;
-    document.getElementById("syncedAt").textContent = `Last sync: ${fmtDate(state.meta.generatedAt)}`;
+    document.getElementById("syncedAt").textContent = `Last sync: ${fmtDate(lastFetchedAt || state.meta.generatedAt)}`;
 }
 
 function renderKpis() {
@@ -350,6 +351,7 @@ async function refresh() {
         const data = await res.json();
         if (!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
         state = data;
+        lastFetchedAt = new Date().toISOString();
         render();
         if (data.meta?.stale) {
             setStatus("warn", "Workbook is busy saving. Showing the last good data for a moment.");
