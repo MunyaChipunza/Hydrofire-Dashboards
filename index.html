@@ -88,10 +88,20 @@
             text-align: center;
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
+        .cardButton {
+            width: 100%;
+            color: inherit;
+            cursor: pointer;
+            appearance: none;
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+        .cardButton:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24); }
+        .cardButton.active { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(117, 168, 220, 0.6), 0 18px 30px rgba(12, 18, 24, 0.34); border-color: #75a8dc; }
         .card.good { border-left-color: #39ff88; } .card.warn { border-left-color: #ffb347; } .card.bad { border-left-color: #ff5a66; }
         .label { font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: #9db0c2; min-height: 28px; font-weight: 700; }
         .value { font-size: 28px; font-weight: 800; margin: 8px 0 4px; } .value.good { color: #39ff88; } .value.warn { color: #ffb347; } .value.bad { color: #ff5a66; }
         .small { font-size: 13px; font-weight: 700; color: #a5b7c8; } .tiny { margin-top: 8px; padding-top: 8px; border-top: 1px solid #2f3944; font-size: 12px; font-weight: 600; color: #95a7b9; }
+        .cardHint { margin-top: 10px; padding-top: 8px; border-top: 1px solid #2f3944; font-size: 11px; font-weight: 700; color: #75a8dc; }
         .scroll { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; min-width: 1100px; }
         th, td { border-bottom: 1px solid #2d3843; padding: 10px; text-align: center; font-size: 13px; }
@@ -118,6 +128,19 @@
         }
         .chartTitle { color: #75a8dc; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
         .chartWrap { position: relative; height: 260px; }
+        .detailHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+        .detailStats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 16px 0; }
+        .detailStat {
+            background: linear-gradient(180deg, #1b222a, #141a21);
+            border: 1px solid #2d3843;
+            border-radius: 12px;
+            padding: 12px 14px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+        .detailStatLabel { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #8ea3b8; font-weight: 700; margin-bottom: 6px; }
+        .detailStatValue { font-size: 22px; font-weight: 800; color: #f4f8fb; line-height: 1.2; }
+        .detailPlaceholder { padding: 22px 0 8px; color: #9caebe; font-size: 13px; }
+        .detailPanel .btn { display: none; }
         .empty { padding: 24px; text-align: center; color: #9caebe; font-size: 13px; }
         @media (max-width: 900px) { .meta { text-align: left; } .chartGrid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 24px; } }
@@ -152,10 +175,19 @@
         <div class="cards" id="kpis"></div>
     </div>
 
-    <div class="panel">
-        <div class="title">KPI Charts</div>
-        <div class="hint">Each chart shows the current trend, target line, and 2025 benchmark where the workbook provides one.</div>
-        <div class="chartGrid" id="chartGrid"></div>
+    <div class="panel detailPanel" id="detailPanel">
+        <div class="detailHeader">
+            <div>
+                <div class="title">KPI Detail</div>
+                <div class="hint" id="detailHint">Click any KPI above to open its chart and supporting metrics.</div>
+            </div>
+            <button class="btn" id="detailClose" onclick="clearKpiDetail()">Close</button>
+        </div>
+        <div class="detailStats" id="detailStats"></div>
+        <div class="chartBox" id="detailChartBox" style="display:none;">
+            <div class="chartTitle" id="detailChartTitle">KPI Detail</div>
+            <div class="chartWrap"><canvas id="detailChartCanvas"></canvas></div>
+        </div>
     </div>
 </div>
 
@@ -179,6 +211,8 @@ let secs = REFRESH_SEC;
 let timer = null;
 let busy = false;
 let charts = [];
+let detailChart = null;
+let selectedKpiKey = null;
 
 Chart.register({
     id: "chartAreaBackground",
@@ -385,6 +419,298 @@ function renderCharts() {
 
 function render() { renderKpis(); renderCharts(); showMeta(); }
 
+function buildKpiItems() {
+    const items = [];
+    if (!state?.kpi) return items;
+    Object.entries(state.kpi).forEach(([key, kpi]) => {
+        if (key === "truckLoading") {
+            items.push({ key: "truckJHB", name: "JHB Truck Loading", target: kpi.target, ave: mean(state.truckJHB), current: latest(state.truckJHB), priorYear: kpi.priorYear });
+            items.push({ key: "truckGeorge", name: "George Truck Loading", target: kpi.target, ave: mean(state.truckGeorge), current: latest(state.truckGeorge), priorYear: kpi.priorYear });
+        } else {
+            items.push({ key, ...kpi });
+        }
+    });
+    return items;
+}
+
+function latestEntry(values, labels) {
+    for (let i = (values || []).length - 1; i >= 0; i -= 1) {
+        if (values[i] !== null && values[i] !== undefined) return { label: labels?.[i] ?? `Point ${i + 1}`, value: values[i] };
+    }
+    return null;
+}
+
+function detailMetric(label, value) { return { label, value }; }
+
+function standardMetrics(kpi, latestInfo, extra = []) {
+    return [
+        detailMetric("Current", fmtPct(kpi?.current, 2)),
+        detailMetric("Target", fmtPct(kpi?.target)),
+        detailMetric("Ave YTD", fmtPct(kpi?.ave, 2)),
+        kpi?.priorYear !== null && kpi?.priorYear !== undefined ? detailMetric("2025 Avg", fmtPct(kpi.priorYear, 2)) : latestInfo ? detailMetric(`Latest ${latestInfo.label}`, fmtPct(latestInfo.value, 2)) : null,
+        ...extra
+    ].filter(Boolean);
+}
+
+function chartOptions(extraScales = {}) {
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            chartAreaBackground: { color: "#0f151b" },
+            legend: { labels: { color: "#d9e2ec", font: { size: 11 }, usePointStyle: true, pointStyle: "line" } }
+        },
+        scales: {
+            y: { ticks: { color: "#9aacbc" }, grid: { color: "rgba(140, 157, 174, 0.22)" }, ...extraScales.y },
+            x: { ticks: { color: "#9aacbc" }, grid: { color: "rgba(140, 157, 174, 0.12)" }, ...extraScales.x }
+        }
+    };
+}
+
+function buildMonthlyBarDetail(title, values, kpi, priorYearValue = null) {
+    const s = filterSeries(values);
+    if (!s.values.length) return null;
+    const labels = s.labels.map(i => MONTHS[i]);
+    const latestInfo = latestEntry(s.values, labels);
+    const prior = priorYearValue ?? kpi?.priorYear;
+    const datasets = [
+        { label: "Actual %", data: s.values, backgroundColor: barColors(s.values, kpi?.target ?? 100), borderWidth: 0 },
+        flatLine(`Target (${fmtPct(kpi?.target ?? 100)})`, kpi?.target ?? 100, s.values.length, COLORS.yellow, [6, 4])
+    ];
+    if (prior !== null && prior !== undefined) datasets.push(flatLine(`2025 Avg (${fmtPct(prior)})`, prior, s.values.length, COLORS.prior));
+    return { title, hint: latestInfo ? `Latest recorded month: ${latestInfo.label}.` : "Showing available months from the workbook.", metrics: standardMetrics(kpi, latestInfo), type: "bar", labels, datasets };
+}
+
+function buildMonthlyLineDetail(title, values, kpi, actualLabel = "Actual %", actualColor = COLORS.blue, priorYearValue = null, averageValue = null) {
+    const s = filterSeries(values);
+    if (!s.values.length) return null;
+    const labels = s.labels.map(i => MONTHS[i]);
+    const latestInfo = latestEntry(s.values, labels);
+    const prior = priorYearValue ?? kpi?.priorYear;
+    const datasets = [
+        { label: actualLabel, data: s.values, borderColor: actualColor, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: actualColor },
+        flatLine(`Target (${fmtPct(kpi?.target ?? 100)})`, kpi?.target ?? 100, s.values.length, COLORS.yellow, [6, 4])
+    ];
+    if (prior !== null && prior !== undefined) datasets.push(flatLine(`2025 Avg (${fmtPct(prior)})`, prior, s.values.length, COLORS.prior));
+    if (averageValue !== null && averageValue !== undefined) datasets.push(flatLine(`Average (${fmtPct(averageValue)})`, averageValue, s.values.length, COLORS.purple, [3, 4]));
+    return { title, hint: latestInfo ? `Latest recorded month: ${latestInfo.label}.` : "Showing available months from the workbook.", metrics: standardMetrics(kpi, latestInfo), type: "line", labels, datasets };
+}
+
+function buildTruckDetail(selectedKey) {
+    const maxLoads = Math.max((state.truckJHB || []).length, (state.truckGeorge || []).length);
+    if (!maxLoads) return null;
+    const labels = Array.from({ length: maxLoads }, (_, i) => `Load ${i + 1}`);
+    const isJhb = selectedKey === "truckJHB";
+    const selectedSeries = isJhb ? state.truckJHB : state.truckGeorge;
+    const otherSeries = isJhb ? state.truckGeorge : state.truckJHB;
+    const selectedLabel = isJhb ? "JHB" : "George";
+    const otherLabel = isJhb ? "George" : "JHB";
+    const latestSelected = latestEntry(selectedSeries, labels);
+    const latestOther = latestEntry(otherSeries, labels);
+    return {
+        title: "Truck Loading Accuracy - JHB vs George",
+        hint: `${selectedLabel} is selected. Both teams stay on the chart so you can compare the actual load results side by side.`,
+        metrics: [
+            detailMetric(`${selectedLabel} Current`, fmtPct(latest(selectedSeries), 2)),
+            detailMetric(`${selectedLabel} Ave`, fmtPct(mean(selectedSeries), 2)),
+            detailMetric("Target", fmtPct(state.kpi?.truckLoading?.target)),
+            state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined ? detailMetric("2025 Avg", fmtPct(state.kpi.truckLoading.priorYear, 2)) : null,
+            latestOther ? detailMetric(`${otherLabel} Current`, fmtPct(latestOther.value, 2)) : null,
+            latestSelected ? detailMetric(`Latest ${selectedLabel} Load`, `${latestSelected.label}: ${fmtPct(latestSelected.value, 2)}`) : null
+        ].filter(Boolean),
+        type: "line",
+        labels,
+        datasets: [
+            { label: "JHB %", data: state.truckJHB, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
+            { label: "George %", data: state.truckGeorge, borderColor: COLORS.lime, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.lime, spanGaps: true },
+            flatLine(`Target (${fmtPct(state.kpi?.truckLoading?.target ?? 99.5)})`, state.kpi?.truckLoading?.target ?? 99.5, maxLoads, COLORS.yellow, [6, 4]),
+            ...(state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.truckLoading.priorYear)})`, state.kpi.truckLoading.priorYear, maxLoads, COLORS.prior)] : [])
+        ]
+    };
+}
+
+function buildStockCountDetail() {
+    const maxWeeks = Math.max((state.stockCount1st || []).length, (state.stockCountFinal || []).length);
+    if (!maxWeeks) return null;
+    const labels = Array.from({ length: maxWeeks }, (_, i) => `Wk ${i + 2}`);
+    const latestFirst = latestEntry(state.stockCount1st, labels);
+    const latestFinal = latestEntry(state.stockCountFinal, labels);
+    return {
+        title: "Stock Count Accuracy",
+        hint: "This view compares first count, final count, target, and the 2025 benchmark.",
+        metrics: [
+            detailMetric("Current", fmtPct(state.kpi?.stockCount?.current, 2)),
+            detailMetric("Target", fmtPct(state.kpi?.stockCount?.target)),
+            detailMetric("Ave YTD", fmtPct(state.kpi?.stockCount?.ave, 2)),
+            state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined ? detailMetric("2025 Avg", fmtPct(state.kpi.stockCount.priorYear, 2)) : null,
+            latestFirst ? detailMetric("Latest 1st Count", `${latestFirst.label}: ${fmtPct(latestFirst.value, 2)}`) : null,
+            latestFinal ? detailMetric("Latest Final Count", `${latestFinal.label}: ${fmtPct(latestFinal.value, 2)}`) : null
+        ].filter(Boolean),
+        type: "line",
+        labels,
+        datasets: [
+            { label: "1st Count %", data: state.stockCount1st, borderColor: COLORS.red, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.red, spanGaps: true },
+            { label: "Final Count %", data: state.stockCountFinal, borderColor: COLORS.teal, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.teal, spanGaps: true },
+            flatLine(`Target (${fmtPct(state.kpi?.stockCount?.target ?? 99)})`, state.kpi?.stockCount?.target ?? 99, maxWeeks, COLORS.yellow, [6, 4]),
+            ...(state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.stockCount.priorYear)})`, state.kpi.stockCount.priorYear, maxWeeks, COLORS.prior)] : [])
+        ]
+    };
+}
+
+function buildTkOdoDetail() {
+    const tkTarget = state.kpi?.tkOdo?.target ?? 60;
+    const tkTargetSeries = (state.tk2025 || []).map(v => v === null || v === undefined ? null : Number((v * (1 + (tkTarget / 100))).toFixed(2)));
+    const latestTk = latestEntry(state.tk2026, MONTHS);
+    const latestOdo = latestEntry(state.odo2026, MONTHS);
+    if (!(state.tk2025 || []).some(v => v !== null && v !== undefined) && !(state.tk2026 || []).some(v => v !== null && v !== undefined) && !(state.odo2026 || []).some(v => v !== null && v !== undefined)) return null;
+    return {
+        title: "Takealot & One Day Only",
+        hint: "This view compares 2025, 2026, One Day Only, and the target trend line.",
+        metrics: [
+            detailMetric("Current", fmtPct(state.kpi?.tkOdo?.current, 2)),
+            detailMetric("Target", fmtPct(state.kpi?.tkOdo?.target)),
+            detailMetric("Ave YTD", fmtPct(state.kpi?.tkOdo?.ave, 2)),
+            latestTk ? detailMetric("Latest 2026", `${latestTk.label}: ${fmtPct(latestTk.value, 2)}`) : null,
+            latestOdo ? detailMetric("Latest ODO", `${latestOdo.label}: ${fmtPct(latestOdo.value, 2)}`) : null
+        ].filter(Boolean),
+        type: "line",
+        labels: MONTHS,
+        datasets: [
+            { label: "2025", data: state.tk2025, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
+            { label: "Target", data: tkTargetSeries, borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0, spanGaps: true },
+            { label: "2026", data: state.tk2026, borderColor: COLORS.green, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.green, spanGaps: true },
+            { label: "One Day Only", data: state.odo2026, borderColor: COLORS.purple, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.purple, spanGaps: true }
+        ]
+    };
+}
+
+function buildLiseoIssuesDetail() {
+    const issues = filterSeries(state.liseoIssues);
+    if (!issues.values.length) return null;
+    const labels = issues.labels.map(i => MONTHS[i]);
+    const latestIssues = latestEntry(issues.values, labels);
+    return {
+        title: "Liseo Issues (Lower Is Better)",
+        hint: "This chart shows the issue count trend, while the KPI score tracks year-on-year improvement.",
+        metrics: [
+            detailMetric("Current Score", fmtPct(state.kpi?.liseoIssues?.current, 2)),
+            detailMetric("Target Score", fmtPct(state.kpi?.liseoIssues?.target)),
+            detailMetric("Ave YTD", fmtPct(state.kpi?.liseoIssues?.ave, 2)),
+            latestIssues ? detailMetric("Latest Issues", `${latestIssues.label}: ${latestIssues.value}`) : null,
+            state.kpi?.liseoIssues?.priorYear !== null && state.kpi?.liseoIssues?.priorYear !== undefined ? detailMetric("2025 Issues", String(state.kpi.liseoIssues.priorYear)) : null
+        ].filter(Boolean),
+        type: "bar",
+        labels,
+        datasets: [
+            { label: "Issues", data: issues.values, backgroundColor: issues.values.map(v => v === 0 ? COLORS.green : v <= 2 ? COLORS.orange : COLORS.red), borderWidth: 0 },
+            { type: "line", label: "Target (0 issues)", data: new Array(issues.values.length).fill(0), borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0 }
+        ],
+        extraScales: { y: { beginAtZero: true } }
+    };
+}
+
+function buildMonthlyStockCountDetail() {
+    const values = monthlyStockCountSeries(state.monthlySC);
+    const s = filterSeries(values);
+    if (!s.values.length) return null;
+    const labels = s.labels.map(i => MONTHS[i]);
+    const latestInfo = latestEntry(s.values, labels);
+    return {
+        title: "Monthly Stock Counts",
+        hint: latestInfo ? `Latest month captured: ${latestInfo.label}.` : "Showing the completed monthly stock count checks.",
+        metrics: standardMetrics(state.kpi?.monthlySC, latestInfo),
+        type: "bar",
+        labels,
+        datasets: [
+            { label: "Actual %", data: s.values, backgroundColor: barColors(s.values, state.kpi?.monthlySC?.target ?? 100), borderWidth: 0 },
+            flatLine(`Target (${fmtPct(state.kpi?.monthlySC?.target ?? 100)})`, state.kpi?.monthlySC?.target ?? 100, s.values.length, COLORS.yellow, [6, 4])
+        ]
+    };
+}
+
+function buildDetailSpec(key) {
+    switch (key) {
+        case "stockTransfer": return buildMonthlyBarDetail("Stock Transfer Compliance", state.trCompliance, state.kpi?.stockTransfer);
+        case "scanning": return buildMonthlyBarDetail("Scanning Compliance", state.scanning, state.kpi?.scanning);
+        case "sheets": return buildMonthlyLineDetail("Filling Out Sheets", state.sheetsCompliance, state.kpi?.sheets, "Actual %", COLORS.teal);
+        case "dispatch": return buildMonthlyLineDetail("Dispatch Accuracy", state.dispatchAccuracy, state.kpi?.dispatch, "Actual %", COLORS.green, state.kpi?.dispatch?.priorYear);
+        case "truckJHB":
+        case "truckGeorge": return buildTruckDetail(key);
+        case "stockCount": return buildStockCountDetail();
+        case "localParts": return buildMonthlyLineDetail("Local Parts Availability", state.localParts, state.kpi?.localParts, "Current %", COLORS.blue, null, state.kpi?.localParts?.ave);
+        case "liseoRTB": return buildMonthlyLineDetail("Liseo Assembled Ready to Buy", state.liseoRTB, state.kpi?.liseoRTB, "Current %", COLORS.purple, null, state.kpi?.liseoRTB?.ave);
+        case "coverPlates": return buildMonthlyLineDetail("Cover Plates", state.coverplates, state.kpi?.coverPlates, "Current %", COLORS.orange, null, state.kpi?.coverPlates?.ave);
+        case "tkOdo": return buildTkOdoDetail();
+        case "liseoIssues": return buildLiseoIssuesDetail();
+        case "monthlySC": return buildMonthlyStockCountDetail();
+        default: return null;
+    }
+}
+
+function renderDetailChart(spec) {
+    const canvas = document.getElementById("detailChartCanvas");
+    if (detailChart) detailChart.destroy();
+    detailChart = new Chart(canvas.getContext("2d"), { type: spec.type, data: { labels: spec.labels, datasets: spec.datasets }, options: chartOptions(spec.extraScales || {}) });
+}
+
+function renderDetail() {
+    const hint = document.getElementById("detailHint");
+    const statsHost = document.getElementById("detailStats");
+    const chartBox = document.getElementById("detailChartBox");
+    const chartTitle = document.getElementById("detailChartTitle");
+    const closeButton = document.getElementById("detailClose");
+    if (detailChart) { detailChart.destroy(); detailChart = null; }
+    if (!state || !selectedKpiKey) {
+        hint.textContent = "Click any KPI above to open its chart and supporting metrics.";
+        statsHost.innerHTML = '<div class="detailPlaceholder">Choose a KPI card to focus on its trend and supporting numbers.</div>';
+        chartBox.style.display = "none";
+        closeButton.style.display = "none";
+        return;
+    }
+    const spec = buildDetailSpec(selectedKpiKey);
+    if (!spec) {
+        hint.textContent = "No supporting chart data is available for this KPI yet.";
+        statsHost.innerHTML = '<div class="detailPlaceholder">This KPI does not have enough history in the workbook to show a detail chart yet.</div>';
+        chartBox.style.display = "none";
+        closeButton.style.display = "inline-flex";
+        return;
+    }
+    hint.textContent = spec.hint;
+    statsHost.innerHTML = spec.metrics.map(item => `<div class="detailStat"><div class="detailStatLabel">${esc(item.label)}</div><div class="detailStatValue">${esc(item.value)}</div></div>`).join("");
+    chartTitle.textContent = spec.title;
+    chartBox.style.display = "block";
+    closeButton.style.display = "inline-flex";
+    renderDetailChart(spec);
+}
+
+function openKpiDetail(key) {
+    selectedKpiKey = key;
+    renderKpis();
+    renderDetail();
+    document.getElementById("detailPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function clearKpiDetail() {
+    selectedKpiKey = null;
+    renderKpis();
+    renderDetail();
+}
+
+function renderKpis() {
+    const host = document.getElementById("kpis");
+    const items = buildKpiItems();
+    if (selectedKpiKey && !items.some(item => item.key === selectedKpiKey)) selectedKpiKey = null;
+    if (!items.length) { host.innerHTML = '<div class="empty">No KPI data available yet.</div>'; return; }
+    host.innerHTML = items.map(k => {
+        const s = metric(k.current, k.target);
+        const active = selectedKpiKey === k.key ? " active" : "";
+        return `<button type="button" class="card cardButton ${s}${active}" data-key="${esc(k.key)}"><div class="label">${esc(k.name)}</div><div class="value ${s}">${fmtPct(k.current, 2)}</div><div class="small">Target: ${fmtPct(k.target)}</div><div class="tiny">Ave YTD: ${fmtPct(k.ave, 2)}</div><div class="cardHint">Click for detail</div></button>`;
+    }).join("");
+    host.querySelectorAll(".cardButton").forEach(btn => btn.addEventListener("click", () => openKpiDetail(btn.dataset.key)));
+}
+
+function render() { renderKpis(); renderDetail(); showMeta(); }
+
 async function refresh() {
     if (busy) return;
     busy = true;
@@ -404,7 +730,10 @@ async function refresh() {
         setStatus("err", 'Live sync unavailable. Restart the launcher if needed, then try again.');
         if (!state) {
             document.getElementById("kpis").innerHTML = '<div class="empty">No data loaded yet.</div>';
-            document.getElementById("chartGrid").innerHTML = '<div class="empty">Start the local server to load the KPI charts.</div>';
+            document.getElementById("detailHint").textContent = "Start the data source and refresh again to load KPI detail.";
+            document.getElementById("detailStats").innerHTML = '<div class="detailPlaceholder">Detail charts will appear here once the dashboard data loads.</div>';
+            document.getElementById("detailChartBox").style.display = "none";
+            document.getElementById("detailClose").style.display = "none";
         }
     } finally {
         busy = false;
