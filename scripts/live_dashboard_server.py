@@ -15,11 +15,13 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
+from zoneinfo import ZoneInfo
 
 
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 NS = {"a": MAIN_NS, "r": REL_NS}
+SAST = ZoneInfo("Africa/Johannesburg")
 
 MONTH_INDEX = {
     "jan": 0,
@@ -176,7 +178,7 @@ def header_label(value: Any) -> str:
     if number is not None and 20000 <= number <= 70000:
         return excel_serial_to_label(number)
     text = str(value).strip()
-    return text.replace("—", "-")
+    return text.replace("â€”", "-")
 
 
 def month_slot(value: Any) -> int | None:
@@ -495,7 +497,7 @@ def extract_scorecard(reader: WorkbookReader) -> tuple[dict[str, Any], dict[str,
         if safe_float(row_value(row, number_col)) is None:
             continue
 
-        name = str(kpi_name).strip().replace("—", "-")
+        name = str(kpi_name).strip().replace("â€”", "-")
         target = as_percent(row_value(row, target_col))
         ave = as_percent(row_value(row, ave_col))
         current = as_percent(row_value(row, current_col))
@@ -573,8 +575,8 @@ def build_dashboard_payload(workdir: Path, workbook_name: str | None) -> dict[st
             "meta": {
                 "workbookName": workbook_path.name,
                 "workbookPath": str(workbook_path),
-                "workbookUpdatedAt": datetime.fromtimestamp(workbook_path.stat().st_mtime).isoformat(),
-                "generatedAt": datetime.now().isoformat(),
+                "workbookUpdatedAt": datetime.fromtimestamp(workbook_path.stat().st_mtime, SAST).isoformat(),
+                "generatedAt": datetime.now(SAST).isoformat(),
             },
             "kpi": kpi,
             "scorecard": scorecard,
@@ -668,7 +670,7 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
             if cached_payload is not None:
                 payload = json.loads(json.dumps(cached_payload))
                 payload.setdefault("meta", {})
-                payload["meta"]["generatedAt"] = datetime.now().isoformat()
+                payload["meta"]["generatedAt"] = datetime.now(SAST).isoformat()
                 payload["meta"]["stale"] = True
                 payload["meta"]["warning"] = str(exc)
                 self._write_json(200, payload)
