@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-04-08T15:28:37.818505+02:00",
-    "generatedAt": "2026-04-08T15:28:37.838893+02:00",
+    "workbookUpdatedAt": "2026-04-08T15:58:07.611518+02:00",
+    "generatedAt": "2026-04-08T15:58:07.632088+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -638,36 +638,12 @@
     98.3,
     100.0,
     99.84,
-    100.0,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    99.45
+    100.0
   ],
   "truckGeorge": [
     99.8,
     99.92,
-    100.0,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    99.91
+    100.0
   ],
   "stockCount1st": [
     91.43,
