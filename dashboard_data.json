@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-04-08T16:19:40.267264+02:00",
-    "generatedAt": "2026-04-08T16:19:40.286003+02:00",
+    "workbookUpdatedAt": "2026-04-08T16:51:24.557838+02:00",
+    "generatedAt": "2026-04-08T16:51:24.578070+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -773,53 +773,21 @@
     null
   ],
   "monthlySC": [
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
+    null,
+    null,
     {
       "liseo": true,
-      "a87": true
+      "a87": true,
+      "completed": 100.0
     },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    },
-    {
-      "liseo": false,
-      "a87": false
-    }
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
   ]
 }
