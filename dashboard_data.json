@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-04-08T14:46:42.371499+02:00",
-    "generatedAt": "2026-04-08T14:46:42.391852+02:00",
+    "workbookUpdatedAt": "2026-04-08T14:49:40.206806+02:00",
+    "generatedAt": "2026-04-08T14:49:40.226817+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -52,8 +52,8 @@
     "localParts": {
       "name": "Local Parts Availability",
       "target": 98.0,
-      "ave": 94.52,
-      "current": 97.95,
+      "ave": 92.69,
+      "current": 92.47,
       "priorYear": null
     },
     "liseoRTB": {
@@ -333,8 +333,8 @@
         "number": "7",
         "name": "Local Parts Availability",
         "target": 98.0,
-        "ave": 94.52,
-        "current": 97.95,
+        "ave": 92.69,
+        "current": 92.47,
         "history": [
           98.63,
           99.23,
@@ -701,7 +701,7 @@
     null,
     94.52,
     91.1,
-    97.95,
+    92.47,
     null,
     null,
     null,
