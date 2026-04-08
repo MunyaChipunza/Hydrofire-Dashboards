@@ -10,27 +10,27 @@
         body {
             font-family: "Segoe UI", Tahoma, sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(209, 31, 47, 0.08), transparent 24%),
-                radial-gradient(circle at top right, rgba(47, 111, 182, 0.10), transparent 26%),
-                linear-gradient(180deg, #f4f8fd, #ffffff 35%, #eef4fb);
-            color: #18314f;
+                radial-gradient(circle at top left, rgba(198, 58, 71, 0.05), transparent 24%),
+                radial-gradient(circle at top right, rgba(73, 124, 173, 0.07), transparent 26%),
+                linear-gradient(180deg, #eef3f8, #f7f9fc 35%, #ecf1f6);
+            color: #2c435a;
             padding: 18px;
             min-height: 100vh;
         }
         .wrap { max-width: 1600px; margin: 0 auto; }
         .panel {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(248, 251, 255, 0.99));
-            border: 1px solid #d9e4f0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(249, 251, 253, 0.94));
+            border: 1px solid #d8e1ea;
             border-radius: 14px;
             padding: 18px;
             margin-bottom: 22px;
-            box-shadow: 0 16px 40px rgba(24, 49, 79, 0.08);
+            box-shadow: 0 14px 34px rgba(40, 58, 79, 0.06);
         }
         .header {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(245, 249, 254, 0.99));
-            border-color: #b7cce4;
+            background: linear-gradient(180deg, rgba(250, 252, 254, 0.96), rgba(242, 246, 250, 0.96));
+            border-color: #c8d7e6;
             padding-top: 28px;
         }
         .header::before {
@@ -38,7 +38,7 @@
             position: absolute;
             inset: 0 0 auto 0;
             height: 16px;
-            background: linear-gradient(90deg, #d11f2f 0%, #d11f2f 16%, #2f6fb6 16%, #2f6fb6 100%);
+            background: linear-gradient(90deg, #c63a47 0%, #c63a47 16%, #497cad 16%, #497cad 100%);
             pointer-events: none;
         }
         .header::after {
@@ -48,37 +48,37 @@
             top: -80px;
             width: 360px;
             height: 360px;
-            background: radial-gradient(circle, rgba(47, 111, 182, 0.14), transparent 68%);
+            background: radial-gradient(circle, rgba(73, 124, 173, 0.10), transparent 68%);
             pointer-events: none;
         }
         .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
-        h1 { font-size: 30px; margin-bottom: 6px; color: #1f4f86; text-shadow: none; }
-        .sub { font-size: 13px; color: #5c7189; }
+        h1 { font-size: 30px; margin-bottom: 6px; color: #315f8f; text-shadow: none; }
+        .sub { font-size: 13px; color: #667b91; }
         .badge { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 6px 14px; border: 1px solid #86c58f; color: #86c58f; background: rgba(134,197,143,.12); font-size: 12px; font-weight: 700; }
         .badge.warn { border-color: #ffd54f; color: #ffd54f; background: rgba(255,213,79,.12); }
         .badge.err { border-color: #ef5350; color: #ef5350; background: rgba(239,83,80,.12); }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-        .meta { text-align: right; font-size: 12px; color: #48617d; }
+        .meta { text-align: right; font-size: 12px; color: #597085; }
         .meta strong, .meta span { display: block; }
         .btn {
-            border: 1px solid #2f6fb6;
-            background: linear-gradient(135deg, #3b7cc4, #2f6fb6);
+            border: 1px solid #497cad;
+            background: linear-gradient(135deg, #5a8abd, #497cad);
             color: #fff;
             border-radius: 10px;
             padding: 8px 14px;
             font-size: 12px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(47, 111, 182, 0.20);
+            box-shadow: 0 10px 20px rgba(73, 124, 173, 0.16);
         }
-        .btn:hover { background: linear-gradient(135deg, #2f6fb6, #255d99); }
-        .note { margin-top: 14px; border-radius: 10px; padding: 11px 13px; font-size: 12px; font-weight: 600; background: #edf4fb; color: #23415f; border: 1px solid #d6e5f5; }
-        .note.err { background: #fff0f1; color: #b12332; border-color: #f2c6cc; }
-        .title { color: #d11f2f; text-transform: uppercase; letter-spacing: 1px; font-size: 15px; font-weight: 800; padding-bottom: 10px; border-bottom: 2px solid #dbe6f2; margin-bottom: 14px; }
-        .hint { margin-top: -4px; margin-bottom: 12px; color: #60748b; font-size: 12px; }
+        .btn:hover { background: linear-gradient(135deg, #497cad, #3e6f9f); }
+        .note { margin-top: 14px; border-radius: 10px; padding: 11px 13px; font-size: 12px; font-weight: 600; background: #f3f7fb; color: #35506c; border: 1px solid #d7e1ea; }
+        .note.err { background: #fbf1f2; color: #aa3a45; border-color: #ebcbd0; }
+        .title { color: #c63a47; text-transform: uppercase; letter-spacing: 1px; font-size: 15px; font-weight: 800; padding-bottom: 10px; border-bottom: 2px solid #dde5ec; margin-bottom: 14px; }
+        .hint { margin-top: -4px; margin-bottom: 12px; color: #6c8094; font-size: 12px; }
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
         .card {
-            background: linear-gradient(180deg, #ffffff, #f6faff);
-            border: 1px solid #dbe5f0;
+            background: linear-gradient(180deg, #fcfdff, #f4f7fb);
+            border: 1px solid #d8e2eb;
             border-left: 4px solid #7d818e;
             border-radius: 12px;
             padding: 14px;
@@ -86,36 +86,36 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.60);
         }
         .card.good { border-left-color: #39ff88; } .card.warn { border-left-color: #ffb347; } .card.bad { border-left-color: #ff5a66; }
-        .label { font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: #60748b; min-height: 28px; font-weight: 700; }
+        .label { font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: #677c90; min-height: 28px; font-weight: 700; }
         .value { font-size: 28px; font-weight: 800; margin: 8px 0 4px; } .value.good { color: #39ff88; } .value.warn { color: #ffb347; } .value.bad { color: #ff5a66; }
-        .small { font-size: 11px; color: #6d8094; } .tiny { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e1eaf4; font-size: 10px; color: #8091a2; }
+        .small { font-size: 11px; color: #74879a; } .tiny { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e2e8ef; font-size: 10px; color: #8494a3; }
         .scroll { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; min-width: 1100px; }
-        th, td { border-bottom: 1px solid #dde7f2; padding: 10px; text-align: center; font-size: 13px; }
-        th { background: #edf4fb; color: #d11f2f; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; position: sticky; top: 0; }
+        th, td { border-bottom: 1px solid #dde5ec; padding: 10px; text-align: center; font-size: 13px; }
+        th { background: #eef3f7; color: #c63a47; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; position: sticky; top: 0; }
         .sticky1, .sticky2 { position: sticky; background: #ffffff; z-index: 1; }
-        th.sticky1, th.sticky2 { background: #edf4fb; z-index: 2; }
+        th.sticky1, th.sticky2 { background: #eef3f7; z-index: 2; }
         .sticky1 { left: 0; min-width: 54px; } .sticky2 { left: 54px; min-width: 250px; text-align: left; }
-        .kpiCell { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; } .kpiCell strong { font-size: 13px; } .kpiCell span { color: #728599; font-size: 11px; }
-        .comment { min-width: 220px; max-width: 280px; text-align: left; color: #6e8197; font-size: 12px; }
+        .kpiCell { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; } .kpiCell strong { font-size: 13px; } .kpiCell span { color: #77899a; font-size: 11px; }
+        .comment { min-width: 220px; max-width: 280px; text-align: left; color: #748799; font-size: 12px; }
         .pill { display: inline-block; min-width: 68px; border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700; }
         .pill.good { background: rgba(102,187,106,.18); color: #8fe695; }
         .pill.warn { background: rgba(255,183,77,.18); color: #ffd08a; }
         .pill.bad { background: rgba(239,83,80,.18); color: #ffb4b2; }
-        .pill.neutral { background: rgba(47,111,182,.12); color: #2f6fb6; }
-        .progress { margin-top: 14px; height: 6px; border-radius: 999px; overflow: hidden; background: #dbe7f3; } .fill { height: 100%; width: 0; background: linear-gradient(90deg, #d11f2f, #2f6fb6); }
-        .progressText { margin-top: 8px; text-align: right; color: #6f8297; font-size: 11px; }
+        .pill.neutral { background: rgba(73,124,173,.10); color: #497cad; }
+        .progress { margin-top: 14px; height: 6px; border-radius: 999px; overflow: hidden; background: #dce5ec; } .fill { height: 100%; width: 0; background: linear-gradient(90deg, #c63a47, #497cad); }
+        .progressText { margin-top: 8px; text-align: right; color: #748799; font-size: 11px; }
         .chartGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
         .chartBox {
-            background: linear-gradient(180deg, #ffffff, #f8fbff);
-            border: 1px solid #dbe5f0;
+            background: linear-gradient(180deg, #fcfdff, #f5f8fb);
+            border: 1px solid #d7e0e8;
             border-radius: 12px;
             padding: 14px;
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
         }
-        .chartTitle { color: #1f4f86; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+        .chartTitle { color: #315f8f; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
         .chartWrap { position: relative; height: 260px; }
-        .empty { padding: 24px; text-align: center; color: #6b7e92; font-size: 13px; }
+        .empty { padding: 24px; text-align: center; color: #728596; font-size: 13px; }
         @media (max-width: 900px) { .meta { text-align: left; } .chartGrid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 24px; } }
     </style>
@@ -137,7 +137,7 @@
                 </div>
                 <div style="margin-top:10px;display:flex;gap:10px;align-items:center;">
                     <button class="btn" onclick="manualRefresh()">Refresh Now</button>
-                    <span style="font-size:11px;color:#60748b;" id="countdown">Next refresh in 5s</span>
+                    <span style="font-size:11px;color:#6c8094;" id="countdown">Next refresh in 5s</span>
                 </div>
             </div>
         </div>
@@ -249,10 +249,10 @@ function addChart(title, type, labels, datasets, extraScales = {}) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: "#24405d", font: { size: 11 }, usePointStyle: true, pointStyle: "line" } } },
+            plugins: { legend: { labels: { color: "#51697f", font: { size: 11 }, usePointStyle: true, pointStyle: "line" } } },
             scales: {
-                y: { ticks: { color: "#60748b" }, grid: { color: "rgba(133, 155, 181, 0.28)" }, ...extraScales.y },
-                x: { ticks: { color: "#60748b" }, grid: { color: "rgba(133, 155, 181, 0.14)" }, ...extraScales.x }
+                y: { ticks: { color: "#708295" }, grid: { color: "rgba(150, 166, 182, 0.24)" }, ...extraScales.y },
+                x: { ticks: { color: "#708295" }, grid: { color: "rgba(150, 166, 182, 0.12)" }, ...extraScales.x }
             }
         }
     });
