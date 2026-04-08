@@ -127,7 +127,7 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
         .chartTitle { color: #75a8dc; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
-        .chartWrap { position: relative; height: 260px; }
+        .chartWrap { position: relative; height: 420px; }
         .detailHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
         .detailStats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 16px 0; }
         .detailStat {
@@ -143,7 +143,7 @@
         .detailPanel .btn { display: none; }
         .empty { padding: 24px; text-align: center; color: #9caebe; font-size: 13px; }
         @media (max-width: 900px) { .meta { text-align: left; } .chartGrid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 24px; } }
+        @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 24px; } .chartWrap { height: 320px; } }
     </style>
 </head>
 <body>
@@ -196,15 +196,15 @@ const REFRESH_SEC = 300;
 const API_URL = "./dashboard_data.json";
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const COLORS = {
-    green: "#32ff6a",
-    orange: "#ffb000",
-    red: "#ff2d55",
-    blue: "#00cfff",
-    purple: "#b100ff",
-    yellow: "#fff200",
-    teal: "#00ffd9",
-    lime: "#c2ff00",
-    prior: "#ff6cf2"
+    green: "#00ff66",
+    orange: "#ffb300",
+    red: "#ff335f",
+    blue: "#00d9ff",
+    purple: "#d100ff",
+    yellow: "#ffe600",
+    teal: "#00ffe5",
+    lime: "#d6ff00",
+    prior: "#ff4dff"
 };
 let state = null;
 let secs = REFRESH_SEC;
@@ -253,7 +253,7 @@ function filterSeries(arr) { const labels = [], values = []; (arr || []).forEach
 function monthlyStockCountSeries(arr) { return (arr || []).map(row => row ? ((row.liseo ? 1 : 0) + (row.a87 ? 1 : 0)) * 50 : 0); }
 function barColors(values, target) { return (values || []).map(v => metric(v, target) === "good" ? COLORS.green : metric(v, target) === "warn" ? COLORS.orange : COLORS.red); }
 function requestUrl() { return `${API_URL}${API_URL.includes("?") ? "&" : "?"}ts=${Date.now()}`; }
-function flatLine(label, value, length, color, dash = [2, 6]) { return { type: "line", label, data: new Array(length).fill(value), borderColor: color, borderDash: dash, borderWidth: 3, fill: false, pointRadius: 0, spanGaps: true }; }
+function flatLine(label, value, length, color, dash = [2, 6]) { return { type: "line", label, data: new Array(length).fill(value), borderColor: color, borderDash: dash, borderWidth: 4, fill: false, pointRadius: 0, spanGaps: true }; }
 
 function setStatus(kind, message) {
     const badge = document.getElementById("badge");
@@ -457,14 +457,37 @@ function chartOptions(extraScales = {}) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            chartAreaBackground: { color: "#0f151b" },
-            legend: { labels: { color: "#d9e2ec", font: { size: 11 }, usePointStyle: true, pointStyle: "line" } }
+            chartAreaBackground: { color: "#081019" },
+            legend: { labels: { color: "#f1f6fb", font: { size: 12, weight: "700" }, usePointStyle: true, pointStyle: "line" } }
         },
         scales: {
-            y: { ticks: { color: "#9aacbc" }, grid: { color: "rgba(140, 157, 174, 0.22)" }, ...extraScales.y },
-            x: { ticks: { color: "#9aacbc" }, grid: { color: "rgba(140, 157, 174, 0.12)" }, ...extraScales.x }
+            y: { ticks: { color: "#d6e1ec", font: { size: 11, weight: "600" } }, grid: { color: "rgba(171, 191, 211, 0.18)" }, ...extraScales.y },
+            x: { ticks: { color: "#d6e1ec", font: { size: 11, weight: "600" } }, grid: { color: "rgba(171, 191, 211, 0.10)" }, ...extraScales.x }
         }
     };
+}
+
+function polishDatasets(datasets) {
+    return (datasets || []).map(dataset => {
+        if (dataset.type === "bar" || dataset.backgroundColor && !dataset.borderColor) {
+            return {
+                borderRadius: 8,
+                maxBarThickness: 44,
+                ...dataset
+            };
+        }
+        if ((dataset.type || "line") === "line") {
+            return {
+                borderWidth: dataset.pointRadius === 0 ? 4 : 5,
+                pointRadius: dataset.pointRadius === 0 ? 0 : 6,
+                pointHoverRadius: dataset.pointRadius === 0 ? 0 : 8,
+                pointBorderWidth: dataset.pointRadius === 0 ? 0 : 2,
+                pointBorderColor: dataset.pointRadius === 0 ? undefined : "#ffffff",
+                ...dataset
+            };
+        }
+        return dataset;
+    });
 }
 
 function buildMonthlyBarDetail(title, values, kpi, priorYearValue = null) {
@@ -650,7 +673,7 @@ function buildDetailSpec(key) {
 function renderDetailChart(spec) {
     const canvas = document.getElementById("detailChartCanvas");
     if (detailChart) detailChart.destroy();
-    detailChart = new Chart(canvas.getContext("2d"), { type: spec.type, data: { labels: spec.labels, datasets: spec.datasets }, options: chartOptions(spec.extraScales || {}) });
+    detailChart = new Chart(canvas.getContext("2d"), { type: spec.type, data: { labels: spec.labels, datasets: polishDatasets(spec.datasets) }, options: chartOptions(spec.extraScales || {}) });
 }
 
 function renderDetail() {
