@@ -360,13 +360,12 @@ def extract_truck_loads(reader: WorkbookReader) -> tuple[list[float | None], lis
     row_index = 4
     while row_index in rows:
         row = rows[row_index]
-        if not any(non_empty(value) for value in row.values()):
-            row_index += 1
-            continue
-        if row_index > 40:
+        jhb_load_number = safe_float(row_value(row, 1))
+        george_load_number = safe_float(row_value(row, 5))
+        if jhb_load_number is None and george_load_number is None:
             break
-        jhb.append(as_percent(row_value(row, 2)))
-        george.append(as_percent(row_value(row, 6)))
+        jhb.append(as_percent(row_value(row, 2)) if jhb_load_number is not None else None)
+        george.append(as_percent(row_value(row, 6)) if george_load_number is not None else None)
         row_index += 1
 
     while jhb and jhb[-1] is None:
