@@ -228,6 +228,11 @@ Chart.register({
 
 function esc(v) { return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
 function fmtPct(v, decimals = 1) { return v === null || v === undefined || Number.isNaN(Number(v)) ? "-" : `${Number(v).toFixed(decimals)}%`; }
+function fmtCurrency(v, decimals = 2) {
+    return v === null || v === undefined || Number.isNaN(Number(v))
+        ? "-"
+        : new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(Number(v));
+}
 function fmtDate(v) {
     try {
         if (!v) return "-";
@@ -250,7 +255,13 @@ function metric(v, t) { if (v === null || v === undefined || t === null || t ===
 function mean(arr) { const nums = (arr || []).filter(v => v !== null && v !== undefined); return nums.length ? nums.reduce((a, b) => a + Number(b), 0) / nums.length : null; }
 function latest(arr) { for (let i = (arr || []).length - 1; i >= 0; i -= 1) if (arr[i] !== null && arr[i] !== undefined) return arr[i]; return null; }
 function filterSeries(arr) { const labels = [], values = []; (arr || []).forEach((v, i) => { if (v !== null && v !== undefined) { labels.push(i); values.push(v); } }); return { labels, values }; }
-function monthlyStockCountSeries(arr) { return (arr || []).map(row => row ? ((row.liseo ? 1 : 0) + (row.a87 ? 1 : 0)) * 50 : 0); }
+function monthlyStockCountSeries(arr) {
+    return (arr || []).map(row => {
+        if (!row) return null;
+        if (row.completed !== null && row.completed !== undefined) return Number(row.completed);
+        return ((row.liseo ? 1 : 0) + (row.a87 ? 1 : 0)) * 50;
+    });
+}
 function barColors(values, target) { return (values || []).map(v => metric(v, target) === "good" ? COLORS.green : metric(v, target) === "warn" ? COLORS.orange : COLORS.red); }
 function requestUrl() { return `${API_URL}${API_URL.includes("?") ? "&" : "?"}ts=${Date.now()}`; }
 function flatLine(label, value, length, color, dash = [2, 6]) { return { type: "line", label, data: new Array(length).fill(value), borderColor: color, borderDash: dash, borderWidth: 4, fill: false, pointRadius: 0, spanGaps: true }; }
@@ -593,17 +604,26 @@ function buildTkOdoDetail() {
             detailMetric("Current", fmtPct(state.kpi?.tkOdo?.current, 2)),
             detailMetric("Target", fmtPct(state.kpi?.tkOdo?.target)),
             detailMetric("Ave YTD", fmtPct(state.kpi?.tkOdo?.ave, 2)),
-            latestTk ? detailMetric("Latest 2026", `${latestTk.label}: ${fmtPct(latestTk.value, 2)}`) : null,
-            latestOdo ? detailMetric("Latest ODO", `${latestOdo.label}: ${fmtPct(latestOdo.value, 2)}`) : null
+            latestTk ? detailMetric("Latest 2026", `${latestTk.label}: ${fmtCurrency(latestTk.value)}`) : null,
+            latestOdo ? detailMetric("Latest ODO", `${latestOdo.label}: ${fmtCurrency(latestOdo.value)}`) : null
         ].filter(Boolean),
         type: "line",
         labels: MONTHS,
         datasets: [
-            { label: "2025", data: state.tk2025, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
+            { label: "2025 (ZAR)", data: state.tk2025, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
             { label: "Target", data: tkTargetSeries, borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0, spanGaps: true },
-            { label: "2026", data: state.tk2026, borderColor: COLORS.green, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.green, spanGaps: true },
-            { label: "One Day Only", data: state.odo2026, borderColor: COLORS.purple, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.purple, spanGaps: true }
-        ]
+            { label: "2026 (ZAR)", data: state.tk2026, borderColor: COLORS.green, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.green, spanGaps: true },
+            { label: "One Day Only (ZAR)", data: state.odo2026, borderColor: COLORS.purple, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.purple, spanGaps: true }
+        ],
+        extraScales: {
+            y: {
+                ticks: {
+                    color: "#d6e1ec",
+                    font: { size: 11, weight: "600" },
+                    callback: (value) => new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", notation: "compact", maximumFractionDigits: 1 }).format(Number(value))
+                }
+            }
+        }
     };
 }
 

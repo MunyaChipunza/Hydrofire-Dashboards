@@ -446,19 +446,27 @@ def extract_tk_odo(reader: WorkbookReader) -> tuple[list[float | None], list[flo
     return tk2025, tk2026, odo2026
 
 
-def extract_monthly_sc(reader: WorkbookReader) -> list[dict[str, bool]]:
+def extract_monthly_sc(reader: WorkbookReader) -> list[dict[str, Any] | None]:
     rows = reader.sheet("Monthly SC")
-    _, header_map = find_header_row(rows, {"month", "liseo", "87auckland"})
+    _, header_map = find_header_row(rows, {"month", "liseo", "87auckland", "completed"})
     month_col = header_map["month"]
     liseo_col = header_map["liseo"]
     a87_col = header_map["87auckland"]
+    completed_col = header_map["completed"]
 
     lookup = build_month_lookup(rows, month_col)
-    output = [{"liseo": False, "a87": False} for _ in range(12)]
+    output: list[dict[str, Any] | None] = [None for _ in range(12)]
     for slot, row in lookup.items():
+        liseo_value = row_value(row, liseo_col)
+        a87_value = row_value(row, a87_col)
+        completed_value = as_percent(row_value(row, completed_col))
+        if not non_empty(liseo_value) and not non_empty(a87_value) and completed_value is None:
+            output[slot] = None
+            continue
         output[slot] = {
-            "liseo": truthy_cell(row_value(row, liseo_col)),
-            "a87": truthy_cell(row_value(row, a87_col)),
+            "liseo": truthy_cell(liseo_value),
+            "a87": truthy_cell(a87_value),
+            "completed": completed_value,
         }
     return output
 
