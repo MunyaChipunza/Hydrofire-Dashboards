@@ -2,15 +2,15 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-04-08T10:40:29.633077",
-    "generatedAt": "2026-04-08T10:40:29.656459",
+    "workbookUpdatedAt": "2026-04-08T11:39:50.903408",
+    "generatedAt": "2026-04-08T11:39:50.917444",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
     "stockTransfer": {
       "name": "Stock Transfer Compliance",
       "target": 100.0,
-      "ave": 99.65,
+      "ave": 100.0,
       "current": 100.0,
       "priorYear": null
     },
@@ -87,8 +87,8 @@
     "monthlySC": {
       "name": "Monthly Stock Counts",
       "target": 100.0,
-      "ave": 50.0,
-      "current": 50.0,
+      "ave": 100.0,
+      "current": 100.0,
       "priorYear": null
     }
   },
@@ -123,13 +123,13 @@
         "number": "1",
         "name": "Stock Transfer Compliance",
         "target": 100.0,
-        "ave": 99.65,
+        "ave": 100.0,
         "current": 100.0,
         "history": [
           100.0,
           100.0,
           99.47,
-          99.65,
+          100.0,
           null,
           null,
           null,
@@ -543,8 +543,8 @@
         "number": "14",
         "name": "Monthly Stock Counts",
         "target": 100.0,
-        "ave": 50.0,
-        "current": 50.0,
+        "ave": 100.0,
+        "current": 100.0,
         "history": [
           100.0,
           100.0,
@@ -578,7 +578,7 @@
   "trCompliance": [
     null,
     100.0,
-    98.95,
+    100.0,
     100.0,
     null,
     null,
@@ -806,7 +806,7 @@
       "a87": false
     },
     {
-      "liseo": false,
+      "liseo": true,
       "a87": true
     },
     {
