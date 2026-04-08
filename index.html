@@ -190,7 +190,7 @@ Chart.register({
 });
 
 function esc(v) { return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
-function fmtPct(v) { return v === null || v === undefined || Number.isNaN(Number(v)) ? "-" : `${Number(v).toFixed(1)}%`; }
+function fmtPct(v, decimals = 1) { return v === null || v === undefined || Number.isNaN(Number(v)) ? "-" : `${Number(v).toFixed(decimals)}%`; }
 function fmtDate(v) {
     try {
         if (!v) return "-";
@@ -253,9 +253,9 @@ function renderKpis() {
         const s = metric(k.current, k.target);
         return `<div class="card ${s}">
             <div class="label">${esc(k.name)}</div>
-            <div class="value ${s}">${fmtPct(k.current)}</div>
+            <div class="value ${s}">${fmtPct(k.current, 2)}</div>
             <div class="small">Target: ${fmtPct(k.target)}</div>
-            <div class="tiny">Ave YTD: ${fmtPct(k.ave)}</div>
+            <div class="tiny">Ave YTD: ${fmtPct(k.ave, 2)}</div>
         </div>`;
     }).join("");
 }
