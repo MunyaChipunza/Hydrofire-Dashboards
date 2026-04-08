@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-04-08T15:12:39.588926+02:00",
-    "generatedAt": "2026-04-08T15:12:39.609480+02:00",
+    "workbookUpdatedAt": "2026-04-08T15:17:41.301013+02:00",
+    "generatedAt": "2026-04-08T15:17:41.321763+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -80,8 +80,8 @@
     "tkOdo": {
       "name": "Takealot & ODO Performance",
       "target": 60.0,
-      "ave": 151.91,
-      "current": 156.4,
+      "ave": 108.99,
+      "current": -74.96,
       "priorYear": null
     },
     "monthlySC": {
@@ -508,8 +508,8 @@
         "number": "13",
         "name": "Takealot & ODO Performance",
         "target": 60.0,
-        "ave": 151.91,
-        "current": 156.4,
+        "ave": 108.99,
+        "current": -74.96,
         "history": [
           283.6,
           840.4,
@@ -771,8 +771,8 @@
   "tk2026": [
     37837.45,
     16616.01,
-    130819.74,
-    null,
+    158981.76,
+    36868.03,
     null,
     null,
     null,
