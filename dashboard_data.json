@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-05-06T13:17:21.742722+02:00",
-    "generatedAt": "2026-05-06T13:17:21.762994+02:00",
+    "workbookUpdatedAt": "2026-05-06T15:02:55.946907+02:00",
+    "generatedAt": "2026-05-06T15:02:55.968418+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -38,15 +38,15 @@
     "truckLoading": {
       "name": "Truck Loading Accuracy",
       "target": 99.5,
-      "ave": 96.56,
+      "ave": 97.18,
       "current": 91.29,
       "priorYear": 97.02
     },
     "stockCount": {
       "name": "Stock Count Accuracy",
       "target": 99.0,
-      "ave": 99.16,
-      "current": 99.82,
+      "ave": 98.91,
+      "current": 97.42,
       "priorYear": 98.46
     },
     "localParts": {
@@ -59,8 +59,8 @@
     "liseoRTB": {
       "name": "Liseo Assembled — Ready to Buy",
       "target": 85.0,
-      "ave": 84.29,
-      "current": 100.0,
+      "ave": 72.93,
+      "current": 54.55,
       "priorYear": null
     },
     "coverPlates": {
@@ -263,7 +263,7 @@
         "number": "5",
         "name": "Truck Loading Accuracy",
         "target": 99.5,
-        "ave": 96.56,
+        "ave": 97.18,
         "current": 91.29,
         "history": [
           99.22,
@@ -271,7 +271,7 @@
           98.29,
           100.0,
           98.28,
-          96.56,
+          97.18,
           null,
           null,
           null,
@@ -298,15 +298,15 @@
         "number": "6",
         "name": "Stock Count Accuracy",
         "target": 99.0,
-        "ave": 99.16,
-        "current": 99.82,
+        "ave": 98.91,
+        "current": 97.42,
         "history": [
           98.86,
           99.04,
           99.09,
           99.82,
-          null,
-          null,
+          99.2,
+          98.91,
           null,
           null,
           null,
@@ -368,15 +368,15 @@
         "number": "8",
         "name": "Liseo Assembled — Ready to Buy",
         "target": 85.0,
-        "ave": 84.29,
-        "current": 100.0,
+        "ave": 72.93,
+        "current": 54.55,
         "history": [
           76.19,
           65.38,
           79.06,
           100.0,
-          null,
-          null,
+          71.06,
+          72.93,
           null,
           null,
           null,
@@ -645,7 +645,7 @@
     99.17,
     99.12,
     100.0,
-    84.66
+    92.02
   ],
   "stockCount1st": [
     91.43,
@@ -659,7 +659,11 @@
     92.1,
     93.18,
     89.24,
-    92.39
+    92.39,
+    94.06,
+    86.98,
+    83.9,
+    79.68
   ],
   "stockCountFinal": [
     97.48,
@@ -673,7 +677,11 @@
     99.14,
     100.0,
     98.59,
-    99.82
+    99.82,
+    99.46,
+    99.48,
+    96.27,
+    97.42
   ],
   "localParts": [
     null,
@@ -693,7 +701,7 @@
     92.31,
     61.54,
     83.33,
-    100.0,
+    54.55,
     null,
     null,
     null,
