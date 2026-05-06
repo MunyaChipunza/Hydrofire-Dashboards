@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-05-06T15:46:41.679105+02:00",
-    "generatedAt": "2026-05-06T15:46:41.699233+02:00",
+    "workbookUpdatedAt": "2026-05-06T15:48:45.437827+02:00",
+    "generatedAt": "2026-05-06T15:48:45.493193+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -66,7 +66,7 @@
     "coverPlates": {
       "name": "Cover Plates — No Delays",
       "target": 100.0,
-      "ave": 90.0,
+      "ave": 93.33,
       "current": 100.0,
       "priorYear": null
     },
@@ -403,7 +403,7 @@
         "number": "9",
         "name": "Cover Plates — No Delays",
         "target": 100.0,
-        "ave": 90.0,
+        "ave": 93.33,
         "current": 100.0,
         "history": [
           80.0,
@@ -715,7 +715,7 @@
     null,
     80.0,
     100.0,
-    null,
+    100.0,
     null,
     null,
     null,
@@ -730,7 +730,7 @@
     0,
     0,
     0,
-    null,
+    0,
     null,
     null,
     null,
@@ -790,7 +790,11 @@
       "a87": true,
       "completed": 100.0
     },
-    null,
+    {
+      "liseo": true,
+      "a87": false,
+      "completed": 100.0
+    },
     null,
     null,
     null,
