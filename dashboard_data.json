@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-05-06T15:57:39.855004+02:00",
-    "generatedAt": "2026-05-06T15:57:39.874636+02:00",
+    "workbookUpdatedAt": "2026-05-06T16:05:53.832144+02:00",
+    "generatedAt": "2026-05-06T16:05:53.853145+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -38,8 +38,8 @@
     "truckLoading": {
       "name": "Truck Loading Accuracy",
       "target": 99.5,
-      "ave": 97.18,
-      "current": 91.29,
+      "ave": 98.17,
+      "current": 97.29,
       "priorYear": 97.02
     },
     "stockCount": {
@@ -263,8 +263,8 @@
         "number": "5",
         "name": "Truck Loading Accuracy",
         "target": 99.5,
-        "ave": 97.18,
-        "current": 91.29,
+        "ave": 98.17,
+        "current": 97.29,
         "history": [
           99.22,
           97.92,
@@ -638,14 +638,14 @@
     97.0,
     99.84,
     99.57,
-    91.29
+    97.29
   ],
   "truckGeorge": [
     93.8,
     99.17,
     99.12,
     100.0,
-    92.02
+    98.02
   ],
   "stockCount1st": [
     91.43,
