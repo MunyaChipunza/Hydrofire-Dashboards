@@ -2,16 +2,16 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-05-19T21:27:12.077850+02:00",
-    "generatedAt": "2026-05-19T21:27:12.102819+02:00",
+    "workbookUpdatedAt": "2026-05-19T23:01:47.227386+02:00",
+    "generatedAt": "2026-05-19T23:01:47.263458+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
     "stockTransfer": {
       "name": "Stock Transfer Compliance",
       "target": 100.0,
-      "ave": 93.54,
-      "current": 88.89,
+      "ave": 95.3,
+      "current": 95.92,
       "priorYear": null
     },
     "scanning": {
@@ -24,29 +24,29 @@
     "sheets": {
       "name": "Filling Out Sheets",
       "target": 100.0,
-      "ave": 99.98,
+      "ave": 99.99,
       "current": 100.0,
       "priorYear": null
     },
     "dispatch": {
       "name": "Dispatch Accuracy",
       "target": 99.3,
-      "ave": 99.4,
-      "current": 99.33,
+      "ave": 99.42,
+      "current": 99.53,
       "priorYear": 99.04
     },
     "truckLoading": {
       "name": "Truck Loading Accuracy",
       "target": 99.5,
-      "ave": 98.17,
-      "current": 97.29,
+      "ave": 96.49,
+      "current": 99.04,
       "priorYear": 97.02
     },
     "stockCount": {
       "name": "Stock Count Accuracy",
       "target": 99.0,
-      "ave": 98.91,
-      "current": 97.42,
+      "ave": 98.96,
+      "current": 99.51,
       "priorYear": 98.46
     },
     "localParts": {
@@ -59,8 +59,8 @@
     "liseoRTB": {
       "name": "Liseo Assembled — Ready to Buy",
       "target": 85.0,
-      "ave": 72.93,
-      "current": 54.55,
+      "ave": 69.77,
+      "current": 57.14,
       "priorYear": null
     },
     "coverPlates": {
@@ -73,8 +73,8 @@
     "liseoIssues": {
       "name": "Liseo Issues — Improve YoY",
       "target": 95.0,
-      "ave": 100.0,
-      "current": 100.0,
+      "ave": 95.24,
+      "current": 95.24,
       "priorYear": 21.0
     },
     "tkOdo": {
@@ -123,8 +123,8 @@
         "number": "1",
         "name": "Stock Transfer Compliance",
         "target": 100.0,
-        "ave": 93.54,
-        "current": 88.89,
+        "ave": 95.3,
+        "current": 95.92,
         "history": [
           100.0,
           100.0,
@@ -132,7 +132,7 @@
           100.0,
           99.45,
           99.59,
-          null,
+          95.3,
           null,
           null,
           null,
@@ -193,7 +193,7 @@
         "number": "3",
         "name": "Filling Out Sheets",
         "target": 100.0,
-        "ave": 99.98,
+        "ave": 99.99,
         "current": 100.0,
         "history": [
           100.0,
@@ -228,8 +228,8 @@
         "number": "4",
         "name": "Dispatch Accuracy",
         "target": 99.3,
-        "ave": 99.4,
-        "current": 99.33,
+        "ave": 99.42,
+        "current": 99.53,
         "history": [
           99.39,
           99.36,
@@ -237,7 +237,7 @@
           99.07,
           99.64,
           99.33,
-          null,
+          99.42,
           null,
           null,
           null,
@@ -263,8 +263,8 @@
         "number": "5",
         "name": "Truck Loading Accuracy",
         "target": 99.5,
-        "ave": 98.17,
-        "current": 97.29,
+        "ave": 96.49,
+        "current": 99.04,
         "history": [
           99.22,
           97.92,
@@ -272,7 +272,7 @@
           100.0,
           98.28,
           97.29,
-          null,
+          96.49,
           null,
           null,
           null,
@@ -298,8 +298,8 @@
         "number": "6",
         "name": "Stock Count Accuracy",
         "target": 99.0,
-        "ave": 98.91,
-        "current": 97.42,
+        "ave": 98.96,
+        "current": 99.51,
         "history": [
           98.86,
           99.04,
@@ -307,7 +307,7 @@
           99.82,
           99.2,
           97.42,
-          null,
+          98.96,
           null,
           null,
           null,
@@ -368,8 +368,8 @@
         "number": "8",
         "name": "Liseo Assembled — Ready to Buy",
         "target": 85.0,
-        "ave": 72.93,
-        "current": 54.55,
+        "ave": 69.77,
+        "current": 57.14,
         "history": [
           76.19,
           65.38,
@@ -377,7 +377,7 @@
           100.0,
           71.06,
           54.55,
-          null,
+          69.77,
           null,
           null,
           null,
@@ -438,8 +438,8 @@
         "number": "10",
         "name": "Liseo Issues — Improve YoY",
         "target": 95.0,
-        "ave": 100.0,
-        "current": 100.0,
+        "ave": 95.24,
+        "current": 95.24,
         "history": [
           100.0,
           100.0,
@@ -447,7 +447,7 @@
           100.0,
           100.0,
           100.0,
-          null,
+          95.24,
           null,
           null,
           null,
@@ -580,7 +580,7 @@
     94.83,
     97.89,
     92.56,
-    88.89,
+    95.92,
     null,
     null,
     null,
@@ -594,7 +594,7 @@
     100.0,
     100.0,
     100.0,
-    null,
+    100.0,
     null,
     null,
     null,
@@ -608,7 +608,7 @@
     100.0,
     99.94,
     100.0,
-    null,
+    100.0,
     null,
     null,
     null,
@@ -622,7 +622,7 @@
     99.37,
     99.52,
     99.33,
-    null,
+    99.53,
     null,
     null,
     null,
@@ -638,14 +638,17 @@
     97.0,
     99.84,
     99.57,
-    97.29
+    91.29,
+    93.38,
+    99.04
   ],
   "truckGeorge": [
     93.8,
     99.17,
     99.12,
     100.0,
-    98.02
+    84.66,
+    96.23
   ],
   "stockCount1st": [
     91.43,
@@ -663,7 +666,10 @@
     94.06,
     86.98,
     83.9,
-    79.68
+    79.68,
+    81.97,
+    99.5,
+    81.71
   ],
   "stockCountFinal": [
     97.48,
@@ -681,7 +687,10 @@
     99.46,
     99.48,
     96.27,
-    97.42
+    97.42,
+    98.2,
+    100.0,
+    99.51
   ],
   "localParts": [
     null,
@@ -702,7 +711,7 @@
     61.54,
     83.33,
     54.55,
-    null,
+    57.14,
     null,
     null,
     null,
@@ -730,7 +739,7 @@
     0,
     0,
     0,
-    0,
+    1,
     null,
     null,
     null,
@@ -739,7 +748,7 @@
     null,
     null
   ],
-  "liseoIssuesScore": 100.0,
+  "liseoIssuesScore": 95.24,
   "tk2025": [
     9863.48,
     14357.01,
