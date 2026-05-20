@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-05-20T15:15:48.296722+02:00",
-    "generatedAt": "2026-05-20T15:15:48.330989+02:00",
+    "workbookUpdatedAt": "2026-05-20T15:26:45.407396+02:00",
+    "generatedAt": "2026-05-20T15:26:45.429073+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -45,8 +45,8 @@
     "stockCount": {
       "name": "Stock Count Accuracy",
       "target": 99.0,
-      "ave": 98.96,
-      "current": 99.51,
+      "ave": 98.86,
+      "current": 98.2,
       "priorYear": 98.46
     },
     "localParts": {
@@ -298,8 +298,8 @@
         "number": "6",
         "name": "Stock Count Accuracy",
         "target": 99.0,
-        "ave": 98.96,
-        "current": 99.51,
+        "ave": 98.86,
+        "current": 98.2,
         "history": [
           98.86,
           99.04,
@@ -668,7 +668,7 @@
     83.9,
     79.68,
     81.97,
-    99.5,
+    null,
     81.71
   ],
   "stockCountFinal": [
@@ -689,8 +689,8 @@
     96.27,
     97.42,
     98.2,
-    100.0,
-    99.51
+    null,
+    null
   ],
   "localParts": [
     null,
