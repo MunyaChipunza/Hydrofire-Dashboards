@@ -2,16 +2,16 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-05-20T15:32:43.982277+02:00",
-    "generatedAt": "2026-05-20T15:32:44.002818+02:00",
+    "workbookUpdatedAt": "2026-05-20T15:35:48.142157+02:00",
+    "generatedAt": "2026-05-20T15:35:48.173694+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
     "stockTransfer": {
       "name": "Stock Transfer Compliance",
       "target": 100.0,
-      "ave": 95.3,
-      "current": 95.92,
+      "ave": 99.54,
+      "current": 98.98,
       "priorYear": null
     },
     "scanning": {
@@ -123,8 +123,8 @@
         "number": "1",
         "name": "Stock Transfer Compliance",
         "target": 100.0,
-        "ave": 95.3,
-        "current": 95.92,
+        "ave": 99.54,
+        "current": 98.98,
         "history": [
           100.0,
           100.0,
@@ -577,10 +577,10 @@
   },
   "trCompliance": [
     null,
-    94.83,
-    97.89,
-    92.56,
-    95.92,
+    100.0,
+    100.0,
+    99.17,
+    98.98,
     null,
     null,
     null,
