@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "/home/runner/work/Hydrofire-Dashboards/Hydrofire-Dashboards/.tmp_workbook/Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-06-16T17:28:42.811798+02:00",
-    "generatedAt": "2026-06-16T17:28:42.833976+02:00",
+    "workbookUpdatedAt": "2026-06-16T21:03:53.676367+02:00",
+    "generatedAt": "2026-06-16T21:03:53.699648+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -31,42 +31,42 @@
     "dispatch": {
       "name": "Dispatch Accuracy",
       "target": 99.3,
-      "ave": 99.44,
-      "current": 99.62,
+      "ave": 99.51,
+      "current": 99.85,
       "priorYear": 99.04
     },
     "truckLoading": {
       "name": "Truck Loading Accuracy",
       "target": 99.5,
-      "ave": 96.67,
+      "ave": 96.81,
       "current": 96.22,
       "priorYear": 97.02
     },
     "stockCount": {
       "name": "Stock Count Accuracy",
       "target": 99.0,
-      "ave": 98.32,
+      "ave": 98.14,
       "current": 80.0,
       "priorYear": 98.46
     },
     "localParts": {
       "name": "Local Parts Availability",
       "target": 98.0,
-      "ave": 93.7,
-      "current": 96.58,
+      "ave": 93.97,
+      "current": 97.95,
       "priorYear": null
     },
     "liseoRTB": {
       "name": "Liseo Assembled — Ready to Buy",
       "target": 85.0,
-      "ave": 64.94,
-      "current": 50.0,
+      "ave": 70.24,
+      "current": 81.82,
       "priorYear": null
     },
     "coverPlates": {
       "name": "Cover Plates — No Delays",
       "target": 100.0,
-      "ave": 100.0,
+      "ave": 96.0,
       "current": 100.0,
       "priorYear": null
     },
@@ -87,8 +87,8 @@
     "monthlySC": {
       "name": "Monthly Stock Counts",
       "target": 100.0,
-      "ave": 75.0,
-      "current": 50.0,
+      "ave": 83.33,
+      "current": 100.0,
       "priorYear": null
     }
   },
@@ -228,8 +228,8 @@
         "number": "4",
         "name": "Dispatch Accuracy",
         "target": 99.3,
-        "ave": 99.44,
-        "current": 99.62,
+        "ave": 99.51,
+        "current": 99.85,
         "history": [
           99.39,
           99.36,
@@ -263,7 +263,7 @@
         "number": "5",
         "name": "Truck Loading Accuracy",
         "target": 99.5,
-        "ave": 96.67,
+        "ave": 96.81,
         "current": 96.22,
         "history": [
           99.22,
@@ -298,7 +298,7 @@
         "number": "6",
         "name": "Stock Count Accuracy",
         "target": 99.0,
-        "ave": 98.32,
+        "ave": 98.14,
         "current": 80.0,
         "history": [
           98.86,
@@ -333,8 +333,8 @@
         "number": "7",
         "name": "Local Parts Availability",
         "target": 98.0,
-        "ave": 93.7,
-        "current": 96.58,
+        "ave": 93.97,
+        "current": 97.95,
         "history": [
           98.63,
           99.23,
@@ -368,8 +368,8 @@
         "number": "8",
         "name": "Liseo Assembled — Ready to Buy",
         "target": 85.0,
-        "ave": 64.94,
-        "current": 50.0,
+        "ave": 70.24,
+        "current": 81.82,
         "history": [
           76.19,
           65.38,
@@ -403,7 +403,7 @@
         "number": "9",
         "name": "Cover Plates — No Delays",
         "target": 100.0,
-        "ave": 100.0,
+        "ave": 96.0,
         "current": 100.0,
         "history": [
           80.0,
@@ -543,8 +543,8 @@
         "number": "14",
         "name": "Monthly Stock Counts",
         "target": 100.0,
-        "ave": 75.0,
-        "current": 50.0,
+        "ave": 83.33,
+        "current": 100.0,
         "history": [
           0.0,
           0.0,
@@ -623,7 +623,7 @@
     99.52,
     99.33,
     99.62,
-    null,
+    99.85,
     null,
     null,
     null,
@@ -653,7 +653,10 @@
     81.97,
     null,
     81.71,
-    85.95
+    85.95,
+    null,
+    84.18,
+    81.29
   ],
   "stockCountFinal": [
     97.48,
@@ -675,7 +678,10 @@
     98.2,
     null,
     93.74,
-    93.74
+    93.74,
+    null,
+    95.6,
+    97.19
   ],
   "localParts": [
     null,
@@ -683,7 +689,7 @@
     91.1,
     92.47,
     93.84,
-    96.58,
+    97.95,
     null,
     null,
     null,
@@ -697,7 +703,7 @@
     83.33,
     54.55,
     47.92,
-    50.0,
+    81.82,
     null,
     null,
     null,
@@ -710,8 +716,8 @@
     80.0,
     100.0,
     100.0,
-    null,
-    null,
+    100.0,
+    100.0,
     null,
     null,
     null,
@@ -790,7 +796,11 @@
       "completed": 50.0
     },
     null,
-    null,
+    {
+      "liseo": false,
+      "a87": true,
+      "completed": 100.0
+    },
     null,
     null,
     null,
