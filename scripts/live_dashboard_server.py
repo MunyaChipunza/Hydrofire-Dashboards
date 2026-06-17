@@ -354,19 +354,55 @@ def extract_monthly_percent_series(reader: WorkbookReader, sheet_name: str) -> l
 
 def extract_truck_loads(reader: WorkbookReader) -> tuple[list[float | None], list[float | None]]:
     rows = reader.sheet("Truck Loads")
+    header_row = None
+    load_accuracy_pairs: list[tuple[int, int]] = []
+
+    for row_index in sorted(rows):
+        if row_index > 12:
+            break
+        row = rows[row_index]
+        load_cols = sorted(col for col, value in row.items() if normalize_label(value) == "load")
+        accuracy_cols = sorted(col for col, value in row.items() if normalize_label(value) == "accuracy")
+        if len(load_cols) < 2 or len(accuracy_cols) < 2:
+            continue
+
+        remaining_accuracy = accuracy_cols[:]
+        pairs: list[tuple[int, int]] = []
+        for load_col in load_cols:
+            accuracy_col = next((col for col in remaining_accuracy if col > load_col), None)
+            if accuracy_col is None:
+                continue
+            pairs.append((load_col, accuracy_col))
+            remaining_accuracy = [col for col in remaining_accuracy if col > accuracy_col]
+
+        if len(pairs) >= 2:
+            header_row = row_index
+            load_accuracy_pairs = pairs[:2]
+            break
+
+    if header_row is None or len(load_accuracy_pairs) < 2:
+        raise ValueError("Could not find truck load columns in 'Truck Loads'.")
+
+    (jhb_load_col, jhb_accuracy_col), (george_load_col, george_accuracy_col) = load_accuracy_pairs
     jhb: list[float | None] = []
     george: list[float | None] = []
+    blank_streak = 0
 
-    row_index = 4
-    while row_index in rows:
+    for row_index in sorted(rows):
+        if row_index <= header_row:
+            continue
         row = rows[row_index]
-        jhb_load_number = safe_float(row_value(row, 1))
-        george_load_number = safe_float(row_value(row, 5))
+        jhb_load_number = safe_float(row_value(row, jhb_load_col))
+        george_load_number = safe_float(row_value(row, george_load_col))
         if jhb_load_number is None and george_load_number is None:
-            break
-        jhb.append(as_percent(row_value(row, 2)) if jhb_load_number is not None else None)
-        george.append(as_percent(row_value(row, 6)) if george_load_number is not None else None)
-        row_index += 1
+            blank_streak += 1
+            if blank_streak >= 3:
+                break
+            continue
+
+        blank_streak = 0
+        jhb.append(as_percent(row_value(row, jhb_accuracy_col)) if jhb_load_number is not None else None)
+        george.append(as_percent(row_value(row, george_accuracy_col)) if george_load_number is not None else None)
 
     while jhb and jhb[-1] is None:
         jhb.pop()

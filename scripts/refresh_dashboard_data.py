@@ -208,6 +208,7 @@ def main() -> None:
         workbook = download_workbook(source, tmp_dir)
         payload = build_dashboard_payload(tmp_dir, workbook.name)
         payload.setdefault("meta", {})
+        payload["meta"]["workbookPath"] = workbook.name
         payload["meta"]["publishedFrom"] = source
         OUTPUT_JSON.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Wrote {OUTPUT_JSON}")
