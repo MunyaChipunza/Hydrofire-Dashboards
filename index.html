@@ -595,112 +595,6 @@
             place-items: center;
             text-align: center;
         }
-<<<<<<< HEAD
-        .cardButton {
-            width: 100%;
-            color: inherit;
-            cursor: pointer;
-            appearance: none;
-            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-        }
-        .cardButton:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24); }
-        .cardButton.active { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(117, 168, 220, 0.6), 0 18px 30px rgba(12, 18, 24, 0.34); border-color: #75a8dc; }
-        .card.good { border-left-color: #39ff88; } .card.warn { border-left-color: #ffb347; } .card.bad { border-left-color: #ff5a66; }
-        .label { font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: #9db0c2; min-height: 28px; font-weight: 700; }
-        .value { font-size: 28px; font-weight: 800; margin: 8px 0 4px; } .value.good { color: #39ff88; } .value.warn { color: #ffb347; } .value.bad { color: #ff5a66; }
-        .small { font-size: 13px; font-weight: 700; color: #a5b7c8; } .tiny { margin-top: 8px; padding-top: 8px; border-top: 1px solid #2f3944; font-size: 12px; font-weight: 600; color: #95a7b9; }
-        .cardHint { margin-top: 10px; padding-top: 8px; border-top: 1px solid #2f3944; font-size: 11px; font-weight: 700; color: #75a8dc; }
-        .scroll { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
-        th, td { border-bottom: 1px solid #2d3843; padding: 10px; text-align: center; font-size: 13px; }
-        th { background: #161c23; color: #e05a67; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; position: sticky; top: 0; }
-        .sticky1, .sticky2 { position: sticky; background: #161c23; z-index: 1; }
-        th.sticky1, th.sticky2 { background: #161c23; z-index: 2; }
-        .sticky1 { left: 0; min-width: 54px; } .sticky2 { left: 54px; min-width: 250px; text-align: left; }
-        .kpiCell { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; } .kpiCell strong { font-size: 13px; } .kpiCell span { color: #90a2b3; font-size: 11px; }
-        .comment { min-width: 220px; max-width: 280px; text-align: left; color: #8ea0b2; font-size: 12px; }
-        .pill { display: inline-block; min-width: 68px; border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700; }
-        .pill.good { background: rgba(102,187,106,.18); color: #8fe695; }
-        .pill.warn { background: rgba(255,183,77,.18); color: #ffd08a; }
-        .pill.bad { background: rgba(239,83,80,.18); color: #ffb4b2; }
-        .pill.neutral { background: rgba(73,124,173,.16); color: #8eb5df; }
-        .progress { margin-top: 14px; height: 6px; border-radius: 999px; overflow: hidden; background: #2c3540; } .fill { height: 100%; width: 0; background: linear-gradient(90deg, #c63a47, #497cad); }
-        .progressText { margin-top: 8px; text-align: right; color: #8da0b2; font-size: 11px; }
-        .chartGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
-        .chartBox {
-            background: linear-gradient(180deg, #1a2027, #141a20);
-            border: 1px solid #2d3843;
-            border-radius: 12px;
-            padding: 14px;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-        }
-        .chartTitle { color: #75a8dc; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
-        .chartWrap { position: relative; height: 420px; }
-        .detailHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
-        .detailStats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 16px 0; }
-        .detailStat {
-            background: linear-gradient(180deg, #1b222a, #141a21);
-            border: 1px solid #2d3843;
-            border-radius: 12px;
-            padding: 12px 14px;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-        }
-        .detailStatLabel { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #8ea3b8; font-weight: 700; margin-bottom: 6px; }
-        .detailStatValue { font-size: 22px; font-weight: 800; color: #f4f8fb; line-height: 1.2; }
-        .detailPlaceholder { padding: 22px 0 8px; color: #9caebe; font-size: 13px; }
-        .detailPanel .btn { display: none; }
-        .empty { padding: 24px; text-align: center; color: #9caebe; font-size: 13px; }
-        @media (max-width: 900px) { .meta { text-align: left; } .chartGrid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 24px; } .chartWrap { height: 320px; } }
-    </style>
-</head>
-<body>
-<div class="wrap">
-    <div class="panel header">
-        <div class="row">
-            <div>
-                <h1>MUNYA & KRISTO - FORTNIGHTLY SCORECARD</h1>
-                <div class="sub">Engineering &amp; Operations | 92 Marine Drive | Hydrofire</div>
-            </div>
-            <div>
-                <div class="badge" id="badge"><span class="dot"></span><span id="badgeText">WAITING</span></div>
-                <div class="meta">
-                    <strong id="savedAt">Waiting for workbook</strong>
-                    <span id="sourceName">Source: -</span>
-                    <span id="syncedAt">Last sync: -</span>
-                </div>
-                <div style="margin-top:10px;display:flex;gap:10px;align-items:center;">
-                    <button class="btn" onclick="manualRefresh()">Refresh Now</button>
-                    <span style="font-size:11px;color:#9bb0c4;" id="countdown">Next refresh in 5m 00s</span>
-                </div>
-            </div>
-        </div>
-        <div class="note" id="note">Loading hosted dashboard...</div>
-    </div>
-
-    <div class="panel">
-        <div class="title">Key Performance Indicators</div>
-        <div class="cards" id="kpis"></div>
-    </div>
-
-    <div class="panel detailPanel" id="detailPanel">
-        <div class="detailHeader">
-            <div>
-                <div class="title">KPI Detail</div>
-                <div class="hint" id="detailHint">Click any KPI above to open its chart and supporting metrics.</div>
-            </div>
-            <button class="btn" id="detailClose" onclick="clearKpiDetail()">Close</button>
-        </div>
-        <div class="detailStats" id="detailStats"></div>
-        <div class="chartBox" id="detailChartBox" style="display:none;">
-            <div class="chartTitle" id="detailChartTitle">KPI Detail</div>
-            <div class="chartWrap"><canvas id="detailChartCanvas"></canvas></div>
-        </div>
-    </div>
-</div>
-
-<script>
-=======
 
         .placeholderInner {
             max-width: 380px;
@@ -866,30 +760,10 @@
 </div>
 
 <script>
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 const REFRESH_SEC = 300;
 const API_URL = "./dashboard_data.json";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const COLORS = {
-<<<<<<< HEAD
-    green: "#00ff66",
-    orange: "#ffb300",
-    red: "#ff335f",
-    blue: "#00d9ff",
-    purple: "#d100ff",
-    yellow: "#ffe600",
-    teal: "#00ffe5",
-    lime: "#d6ff00",
-    prior: "#ff4dff"
-};
-let state = null;
-let secs = REFRESH_SEC;
-let timer = null;
-let busy = false;
-let charts = [];
-let detailChart = null;
-let selectedKpiKey = null;
-=======
     green: "#00d26a",
     orange: "#ffae1a",
     red: "#ff4c66",
@@ -908,7 +782,6 @@ let busy = false;
 let detailChart = null;
 let selectedKpiKey = null;
 let hasAutoSelected = false;
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 
 Chart.register({
     id: "chartAreaBackground",
@@ -922,16 +795,6 @@ Chart.register({
     }
 });
 
-<<<<<<< HEAD
-function esc(v) { return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
-function fmtPct(v, decimals = 1) { return v === null || v === undefined || Number.isNaN(Number(v)) ? "-" : `${Number(v).toFixed(decimals)}%`; }
-function fmtCurrency(v, decimals = 2) {
-    return v === null || v === undefined || Number.isNaN(Number(v))
-        ? "-"
-        : new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(Number(v));
-}
-function fmtDate(v) {
-=======
 function esc(value) {
     return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -964,7 +827,6 @@ function fmtCurrency(value, decimals = 2) {
 }
 
 function fmtDate(value) {
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
     try {
         if (!value) return "-";
         return `${new Intl.DateTimeFormat("en-ZA", {
@@ -981,186 +843,6 @@ function fmtDate(value) {
         return value || "-";
     }
 }
-<<<<<<< HEAD
-function metric(v, t) { if (v === null || v === undefined || t === null || t === undefined) return "neutral"; if (v >= t) return "good"; if (v >= t * 0.95) return "warn"; return "bad"; }
-function mean(arr) { const nums = (arr || []).filter(v => v !== null && v !== undefined); return nums.length ? nums.reduce((a, b) => a + Number(b), 0) / nums.length : null; }
-function latest(arr) { for (let i = (arr || []).length - 1; i >= 0; i -= 1) if (arr[i] !== null && arr[i] !== undefined) return arr[i]; return null; }
-function filterSeries(arr) { const labels = [], values = []; (arr || []).forEach((v, i) => { if (v !== null && v !== undefined) { labels.push(i); values.push(v); } }); return { labels, values }; }
-function monthlyStockCountSeries(arr) {
-    return (arr || []).map(row => {
-        if (!row) return null;
-        if (row.completed !== null && row.completed !== undefined) return Number(row.completed);
-        return ((row.liseo ? 1 : 0) + (row.a87 ? 1 : 0)) * 50;
-    });
-}
-function barColors(values, target) { return (values || []).map(v => metric(v, target) === "good" ? COLORS.green : metric(v, target) === "warn" ? COLORS.orange : COLORS.red); }
-function requestUrl() { return `${API_URL}${API_URL.includes("?") ? "&" : "?"}ts=${Date.now()}`; }
-function flatLine(label, value, length, color, dash = [2, 6]) { return { type: "line", label, data: new Array(length).fill(value), borderColor: color, borderDash: dash, borderWidth: 4, fill: false, pointRadius: 0, spanGaps: true }; }
-
-function setStatus(kind, message) {
-    const badge = document.getElementById("badge");
-    const text = document.getElementById("badgeText");
-    const note = document.getElementById("note");
-    badge.className = kind === "err" ? "badge err" : kind === "warn" ? "badge warn" : "badge";
-    text.textContent = kind === "err" ? "ERROR" : kind === "warn" ? "SYNCING" : "LIVE";
-    note.className = kind === "err" ? "note err" : "note";
-    note.textContent = message;
-}
-
-function showMeta() {
-    if (!state?.meta) return;
-    document.getElementById("savedAt").textContent = `Workbook saved: ${fmtDate(state.meta.workbookUpdatedAt)}`;
-    document.getElementById("sourceName").textContent = `Source: ${state.meta.workbookName}`;
-    document.getElementById("syncedAt").textContent = `Last sync: ${fmtDate(state.meta.generatedAt)}`;
-}
-
-function renderKpis() {
-    const host = document.getElementById("kpis");
-    const items = [];
-    if (state?.kpi) {
-        Object.entries(state.kpi).forEach(([key, kpi]) => {
-            if (key === "truckLoading") {
-                items.push({ name: "JHB Truck Loading", target: kpi.target, ave: mean(state.truckJHB), current: latest(state.truckJHB) });
-                items.push({ name: "George Truck Loading", target: kpi.target, ave: mean(state.truckGeorge), current: latest(state.truckGeorge) });
-            } else {
-                items.push(kpi);
-            }
-        });
-    }
-    if (!items.length) { host.innerHTML = '<div class="empty">No KPI data available yet.</div>'; return; }
-    host.innerHTML = items.map(k => {
-        const s = metric(k.current, k.target);
-        return `<div class="card ${s}">
-            <div class="label">${esc(k.name)}</div>
-            <div class="value ${s}">${fmtPct(k.current, 2)}</div>
-            <div class="small">Target: ${fmtPct(k.target)}</div>
-            <div class="tiny">Ave YTD: ${fmtPct(k.ave, 2)}</div>
-        </div>`;
-    }).join("");
-}
-
-function destroyCharts() { charts.forEach(chart => chart.destroy()); charts = []; }
-
-function chartHost(title) {
-    const box = document.createElement("div");
-    box.className = "chartBox";
-    box.innerHTML = `<div class="chartTitle">${esc(title)}</div><div class="chartWrap"><canvas></canvas></div>`;
-    document.getElementById("chartGrid").appendChild(box);
-    return box.querySelector("canvas").getContext("2d");
-}
-
-function addChart(title, type, labels, datasets, extraScales = {}) {
-    const ctx = chartHost(title);
-    const chart = new Chart(ctx, {
-        type,
-        data: { labels, datasets },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                chartAreaBackground: { color: "#0f151b" },
-                legend: { labels: { color: "#d9e2ec", font: { size: 11 }, usePointStyle: true, pointStyle: "line" } }
-            },
-            scales: {
-                y: { ticks: { color: "#9aacbc" }, grid: { color: "rgba(140, 157, 174, 0.22)" }, ...extraScales.y },
-                x: { ticks: { color: "#9aacbc" }, grid: { color: "rgba(140, 157, 174, 0.12)" }, ...extraScales.x }
-            }
-        }
-    });
-    charts.push(chart);
-}
-
-function addMonthlyBar(title, values, target, priorYearValue = null, priorYearLabel = "2025 Avg") {
-    const s = filterSeries(values);
-    if (!s.values.length) return;
-    const datasets = [
-        { label: "Actual %", data: s.values, backgroundColor: barColors(s.values, target), borderWidth: 0 },
-        flatLine(`Target (${fmtPct(target)})`, target, s.values.length, COLORS.yellow, [6, 4])
-    ];
-    if (priorYearValue !== null && priorYearValue !== undefined) {
-        datasets.push(flatLine(`${priorYearLabel} (${fmtPct(priorYearValue)})`, priorYearValue, s.values.length, COLORS.prior));
-    }
-    addChart(title, "bar", s.labels.map(i => MONTHS[i]), datasets);
-}
-
-function addMonthlyLine(title, values, target, averageValue, actualLabel = "Actual %", actualColor = COLORS.blue, priorYearValue = null, priorYearLabel = "2025 Avg") {
-    const s = filterSeries(values);
-    if (!s.values.length) return;
-    const datasets = [
-        { label: actualLabel, data: s.values, borderColor: actualColor, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: actualColor },
-        flatLine(`Target (${fmtPct(target)})`, target, s.values.length, COLORS.yellow, [6, 4])
-    ];
-    if (priorYearValue !== null && priorYearValue !== undefined) {
-        datasets.push(flatLine(`${priorYearLabel} (${fmtPct(priorYearValue)})`, priorYearValue, s.values.length, COLORS.prior));
-    }
-    if (averageValue !== null && averageValue !== undefined) {
-        datasets.push(flatLine(`Average (${fmtPct(averageValue)})`, averageValue, s.values.length, COLORS.purple, [3, 4]));
-    }
-    addChart(title, "line", s.labels.map(i => MONTHS[i]), datasets);
-}
-
-function renderCharts() {
-    const host = document.getElementById("chartGrid");
-    destroyCharts();
-    host.innerHTML = "";
-    if (!state) { host.innerHTML = '<div class="empty">Waiting for chart data.</div>'; return; }
-    if (typeof Chart === "undefined") { host.innerHTML = '<div class="empty">Chart library did not load.</div>'; return; }
-
-    addMonthlyBar("Stock Transfer Compliance", state.trCompliance, state.kpi?.stockTransfer?.target ?? 100);
-    addMonthlyBar("Scanning Compliance", state.scanning, state.kpi?.scanning?.target ?? 100);
-    addMonthlyLine("Filling Out Sheets", state.sheetsCompliance, state.kpi?.sheets?.target ?? 100, null, "Actual %", COLORS.teal);
-    addMonthlyLine("Dispatch Accuracy", state.dispatchAccuracy, state.kpi?.dispatch?.target ?? 99.3, null, "Actual %", COLORS.green, state.kpi?.dispatch?.priorYear);
-
-    const maxLoads = Math.max((state.truckJHB || []).length, (state.truckGeorge || []).length);
-    if (maxLoads) {
-        addChart("Truck Loading Accuracy - JHB vs George", "line", Array.from({ length: maxLoads }, (_, i) => `Load ${i + 1}`), [
-            { label: "JHB %", data: state.truckJHB, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
-            { label: "George %", data: state.truckGeorge, borderColor: COLORS.lime, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.lime, spanGaps: true },
-            flatLine(`Target (${fmtPct(state.kpi?.truckLoading?.target ?? 99.5)})`, state.kpi?.truckLoading?.target ?? 99.5, maxLoads, COLORS.yellow, [6, 4]),
-            ...(state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.truckLoading.priorYear)})`, state.kpi.truckLoading.priorYear, maxLoads, COLORS.prior)] : [])
-        ]);
-    }
-
-    const maxWeeks = Math.max((state.stockCount1st || []).length, (state.stockCountFinal || []).length);
-    if (maxWeeks) {
-        addChart("Stock Count Accuracy", "line", Array.from({ length: maxWeeks }, (_, i) => `Wk ${i + 2}`), [
-            { label: "1st Count %", data: state.stockCount1st, borderColor: COLORS.red, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.red, spanGaps: true },
-            { label: "Final Count %", data: state.stockCountFinal, borderColor: COLORS.teal, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.teal, spanGaps: true },
-            flatLine(`Target (${fmtPct(state.kpi?.stockCount?.target ?? 99)})`, state.kpi?.stockCount?.target ?? 99, maxWeeks, COLORS.yellow, [6, 4]),
-            ...(state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.stockCount.priorYear)})`, state.kpi.stockCount.priorYear, maxWeeks, COLORS.prior)] : [])
-        ]);
-    }
-
-    addMonthlyLine("Local Parts Availability", state.localParts, state.kpi?.localParts?.target ?? 98, state.kpi?.localParts?.ave, "Current %", COLORS.blue);
-    addMonthlyLine("Liseo Assembled Ready to Buy", state.liseoRTB, state.kpi?.liseoRTB?.target ?? 85, state.kpi?.liseoRTB?.ave, "Current %", COLORS.purple);
-    addMonthlyLine("Cover Plates", state.coverplates, state.kpi?.coverPlates?.target ?? 100, state.kpi?.coverPlates?.ave, "Current %", COLORS.orange);
-
-    const tkTarget = state.kpi?.tkOdo?.target ?? 60;
-    const tkTargetSeries = (state.tk2025 || []).map(v => v === null || v === undefined ? null : Number((v * (1 + (tkTarget / 100))).toFixed(2)));
-    if ((state.tk2025 || []).some(v => v !== null && v !== undefined) || (state.tk2026 || []).some(v => v !== null && v !== undefined) || (state.odo2026 || []).some(v => v !== null && v !== undefined)) {
-        addChart("Takealot & One Day Only", "line", MONTHS, [
-            { label: "2025", data: state.tk2025, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
-            { label: "Target", data: tkTargetSeries, borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0, spanGaps: true },
-            { label: "2026", data: state.tk2026, borderColor: COLORS.green, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.green, spanGaps: true },
-            { label: "One Day Only", data: state.odo2026, borderColor: COLORS.purple, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.purple, spanGaps: true }
-        ]);
-    }
-
-    const issues = filterSeries(state.liseoIssues);
-    if (issues.values.length) {
-        addChart("Liseo Issues (Lower Is Better)", "bar", issues.labels.map(i => MONTHS[i]), [
-            { label: "Issues", data: issues.values, backgroundColor: issues.values.map(v => v === 0 ? COLORS.green : v <= 2 ? COLORS.orange : COLORS.red), borderWidth: 0 },
-            { type: "line", label: "Target (0 issues)", data: new Array(issues.values.length).fill(0), borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0 }
-        ], { y: { beginAtZero: true } });
-    }
-
-    addMonthlyBar("Monthly Stock Counts", monthlyStockCountSeries(state.monthlySC), state.kpi?.monthlySC?.target ?? 100);
-
-    if (!host.children.length) host.innerHTML = '<div class="empty">No chart data available yet.</div>';
-}
-
-function render() { renderKpis(); renderCharts(); showMeta(); }
-=======
 
 function metric(value, target) {
     const current = asNumber(value);
@@ -1305,33 +987,10 @@ function sparklineSvg(values, status) {
         <circle cx="${lastPoint.split(",")[0]}" cy="${lastPoint.split(",")[1]}" r="4.5" fill="${stroke}" stroke="#ffffff" stroke-width="2"></circle>
     </svg>`;
 }
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 
 function buildKpiItems() {
     const items = [];
     if (!state?.kpi) return items;
-<<<<<<< HEAD
-    Object.entries(state.kpi).forEach(([key, kpi]) => {
-        if (key === "truckLoading") {
-            items.push({ key: "truckJHB", name: "JHB Truck Loading", target: kpi.target, ave: mean(state.truckJHB), current: latest(state.truckJHB), priorYear: kpi.priorYear });
-            items.push({ key: "truckGeorge", name: "George Truck Loading", target: kpi.target, ave: mean(state.truckGeorge), current: latest(state.truckGeorge), priorYear: kpi.priorYear });
-        } else {
-            items.push({ key, ...kpi });
-        }
-    });
-    return items;
-}
-
-function latestEntry(values, labels) {
-    for (let i = (values || []).length - 1; i >= 0; i -= 1) {
-        if (values[i] !== null && values[i] !== undefined) return { label: labels?.[i] ?? `Point ${i + 1}`, value: values[i] };
-    }
-    return null;
-}
-
-function detailMetric(label, value) { return { label, value }; }
-
-=======
 
     Object.entries(state.kpi).forEach(([key, kpi]) => {
         if (key === "truckLoading") {
@@ -1360,27 +1019,20 @@ function detailMetric(label, value) { return { label, value }; }
     return items;
 }
 
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 function standardMetrics(kpi, latestInfo, extra = []) {
     return [
         detailMetric("Current", fmtPct(kpi?.current, 2)),
         detailMetric("Target", fmtPct(kpi?.target)),
         detailMetric("Ave YTD", fmtPct(kpi?.ave, 2)),
-<<<<<<< HEAD
-        kpi?.priorYear !== null && kpi?.priorYear !== undefined ? detailMetric("2025 Avg", fmtPct(kpi.priorYear, 2)) : latestInfo ? detailMetric(`Latest ${latestInfo.label}`, fmtPct(latestInfo.value, 2)) : null,
-=======
         kpi?.priorYear !== null && kpi?.priorYear !== undefined
             ? detailMetric("2025 Avg", fmtPct(kpi.priorYear, 2))
             : latestInfo
                 ? detailMetric(`Latest ${latestInfo.label}`, fmtPct(latestInfo.value, 2))
                 : null,
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         ...extra
     ].filter(Boolean);
 }
 
-<<<<<<< HEAD
-=======
 function setStatus(kind, message) {
     const badge = document.getElementById("badge");
     const badgeText = document.getElementById("badgeText");
@@ -1456,20 +1108,10 @@ function renderKpis() {
     });
 }
 
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 function chartOptions(extraScales = {}) {
     return {
         responsive: true,
         maintainAspectRatio: false,
-<<<<<<< HEAD
-        plugins: {
-            chartAreaBackground: { color: "#081019" },
-            legend: { labels: { color: "#f1f6fb", font: { size: 12, weight: "700" }, usePointStyle: true, pointStyle: "line" } }
-        },
-        scales: {
-            y: { ticks: { color: "#d6e1ec", font: { size: 11, weight: "600" } }, grid: { color: "rgba(171, 191, 211, 0.18)" }, ...extraScales.y },
-            x: { ticks: { color: "#d6e1ec", font: { size: 11, weight: "600" } }, grid: { color: "rgba(171, 191, 211, 0.10)" }, ...extraScales.x }
-=======
         interaction: {
             mode: "nearest",
             intersect: false
@@ -1514,27 +1156,12 @@ function chartOptions(extraScales = {}) {
                 },
                 ...extraScales.x
             }
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         }
     };
 }
 
 function polishDatasets(datasets) {
     return (datasets || []).map(dataset => {
-<<<<<<< HEAD
-        if (dataset.type === "bar" || dataset.backgroundColor && !dataset.borderColor) {
-            return {
-                borderRadius: 8,
-                maxBarThickness: 44,
-                ...dataset
-            };
-        }
-        if ((dataset.type || "line") === "line") {
-            return {
-                borderWidth: dataset.pointRadius === 0 ? 4 : 5,
-                pointRadius: dataset.pointRadius === 0 ? 0 : 6,
-                pointHoverRadius: dataset.pointRadius === 0 ? 0 : 8,
-=======
         if (dataset.type === "bar" || (dataset.backgroundColor && !dataset.borderColor)) {
             return {
                 borderRadius: 10,
@@ -1548,49 +1175,17 @@ function polishDatasets(datasets) {
                 borderWidth: dataset.pointRadius === 0 ? 3 : 4,
                 pointRadius: dataset.pointRadius === 0 ? 0 : 5,
                 pointHoverRadius: dataset.pointRadius === 0 ? 0 : 7,
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
                 pointBorderWidth: dataset.pointRadius === 0 ? 0 : 2,
                 pointBorderColor: dataset.pointRadius === 0 ? undefined : "#ffffff",
                 ...dataset
             };
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         return dataset;
     });
 }
 
 function buildMonthlyBarDetail(title, values, kpi, priorYearValue = null) {
-<<<<<<< HEAD
-    const s = filterSeries(values);
-    if (!s.values.length) return null;
-    const labels = s.labels.map(i => MONTHS[i]);
-    const latestInfo = latestEntry(s.values, labels);
-    const prior = priorYearValue ?? kpi?.priorYear;
-    const datasets = [
-        { label: "Actual %", data: s.values, backgroundColor: barColors(s.values, kpi?.target ?? 100), borderWidth: 0 },
-        flatLine(`Target (${fmtPct(kpi?.target ?? 100)})`, kpi?.target ?? 100, s.values.length, COLORS.yellow, [6, 4])
-    ];
-    if (prior !== null && prior !== undefined) datasets.push(flatLine(`2025 Avg (${fmtPct(prior)})`, prior, s.values.length, COLORS.prior));
-    return { title, hint: latestInfo ? `Latest recorded month: ${latestInfo.label}.` : "Showing available months from the workbook.", metrics: standardMetrics(kpi, latestInfo), type: "bar", labels, datasets };
-}
-
-function buildMonthlyLineDetail(title, values, kpi, actualLabel = "Actual %", actualColor = COLORS.blue, priorYearValue = null, averageValue = null) {
-    const s = filterSeries(values);
-    if (!s.values.length) return null;
-    const labels = s.labels.map(i => MONTHS[i]);
-    const latestInfo = latestEntry(s.values, labels);
-    const prior = priorYearValue ?? kpi?.priorYear;
-    const datasets = [
-        { label: actualLabel, data: s.values, borderColor: actualColor, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: actualColor },
-        flatLine(`Target (${fmtPct(kpi?.target ?? 100)})`, kpi?.target ?? 100, s.values.length, COLORS.yellow, [6, 4])
-    ];
-    if (prior !== null && prior !== undefined) datasets.push(flatLine(`2025 Avg (${fmtPct(prior)})`, prior, s.values.length, COLORS.prior));
-    if (averageValue !== null && averageValue !== undefined) datasets.push(flatLine(`Average (${fmtPct(averageValue)})`, averageValue, s.values.length, COLORS.purple, [3, 4]));
-    return { title, hint: latestInfo ? `Latest recorded month: ${latestInfo.label}.` : "Showing available months from the workbook.", metrics: standardMetrics(kpi, latestInfo), type: "line", labels, datasets };
-=======
     const series = filterSeries(values);
     if (!series.values.length) return null;
     const labels = series.labels.map(index => MONTHS[index]);
@@ -1652,18 +1247,13 @@ function buildMonthlyLineDetail(title, values, kpi, actualLabel = "Actual %", ac
         labels,
         datasets
     };
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 }
 
 function buildTruckDetail(selectedKey) {
     const maxLoads = Math.max((state.truckJHB || []).length, (state.truckGeorge || []).length);
     if (!maxLoads) return null;
-<<<<<<< HEAD
-    const labels = Array.from({ length: maxLoads }, (_, i) => `Load ${i + 1}`);
-=======
 
     const labels = Array.from({ length: maxLoads }, (_, index) => `Load ${index + 1}`);
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
     const isJhb = selectedKey === "truckJHB";
     const selectedSeries = isJhb ? state.truckJHB : state.truckGeorge;
     const otherSeries = isJhb ? state.truckGeorge : state.truckJHB;
@@ -1671,41 +1261,25 @@ function buildTruckDetail(selectedKey) {
     const otherLabel = isJhb ? "George" : "JHB";
     const latestSelected = latestEntry(selectedSeries, labels);
     const latestOther = latestEntry(otherSeries, labels);
-<<<<<<< HEAD
-    return {
-        title: "Truck Loading Accuracy - JHB vs George",
-        hint: `${selectedLabel} is selected. Both teams stay on the chart so you can compare the actual load results side by side.`,
-=======
 
     return {
         heading: `${selectedLabel} Truck Loading`,
         title: "Truck Loading Accuracy - JHB vs George",
         note: "Both teams stay visible on the same chart so you can compare actual load accuracy against the same target line.",
         hint: `${selectedLabel} is selected. The chart keeps both teams on-screen for direct comparison.`,
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         metrics: [
             detailMetric(`${selectedLabel} Current`, fmtPct(latest(selectedSeries), 2)),
             detailMetric(`${selectedLabel} Ave`, fmtPct(mean(selectedSeries), 2)),
             detailMetric("Target", fmtPct(state.kpi?.truckLoading?.target)),
-<<<<<<< HEAD
-            state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined ? detailMetric("2025 Avg", fmtPct(state.kpi.truckLoading.priorYear, 2)) : null,
-=======
             state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined
                 ? detailMetric("2025 Avg", fmtPct(state.kpi.truckLoading.priorYear, 2))
                 : null,
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
             latestOther ? detailMetric(`${otherLabel} Current`, fmtPct(latestOther.value, 2)) : null,
             latestSelected ? detailMetric(`Latest ${selectedLabel} Load`, `${latestSelected.label}: ${fmtPct(latestSelected.value, 2)}`) : null
         ].filter(Boolean),
         type: "line",
         labels,
         datasets: [
-<<<<<<< HEAD
-            { label: "JHB %", data: state.truckJHB, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
-            { label: "George %", data: state.truckGeorge, borderColor: COLORS.lime, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.lime, spanGaps: true },
-            flatLine(`Target (${fmtPct(state.kpi?.truckLoading?.target ?? 99.5)})`, state.kpi?.truckLoading?.target ?? 99.5, maxLoads, COLORS.yellow, [6, 4]),
-            ...(state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.truckLoading.priorYear)})`, state.kpi.truckLoading.priorYear, maxLoads, COLORS.prior)] : [])
-=======
             {
                 label: "JHB %",
                 data: state.truckJHB,
@@ -1732,7 +1306,6 @@ function buildTruckDetail(selectedKey) {
             ...(state.kpi?.truckLoading?.priorYear !== null && state.kpi?.truckLoading?.priorYear !== undefined
                 ? [flatLine(`2025 Avg (${fmtPct(state.kpi.truckLoading.priorYear)})`, state.kpi.truckLoading.priorYear, maxLoads, COLORS.prior)]
                 : [])
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         ]
     };
 }
@@ -1740,13 +1313,6 @@ function buildTruckDetail(selectedKey) {
 function buildStockCountDetail() {
     const maxWeeks = Math.max((state.stockCount1st || []).length, (state.stockCountFinal || []).length);
     if (!maxWeeks) return null;
-<<<<<<< HEAD
-    const labels = Array.from({ length: maxWeeks }, (_, i) => `Wk ${i + 2}`);
-    const latestFirst = latestEntry(state.stockCount1st, labels);
-    const latestFinal = latestEntry(state.stockCountFinal, labels);
-    return {
-        title: "Stock Count Accuracy",
-=======
 
     const labels = Array.from({ length: maxWeeks }, (_, index) => `Wk ${index + 2}`);
     const latestFirst = latestEntry(state.stockCount1st, labels);
@@ -1756,31 +1322,20 @@ function buildStockCountDetail() {
         heading: "Stock Count Accuracy",
         title: "Stock Count Accuracy",
         note: "First count and final count are shown together against target and prior-year reference.",
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         hint: "This view compares first count, final count, target, and the 2025 benchmark.",
         metrics: [
             detailMetric("Current", fmtPct(state.kpi?.stockCount?.current, 2)),
             detailMetric("Target", fmtPct(state.kpi?.stockCount?.target)),
             detailMetric("Ave YTD", fmtPct(state.kpi?.stockCount?.ave, 2)),
-<<<<<<< HEAD
-            state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined ? detailMetric("2025 Avg", fmtPct(state.kpi.stockCount.priorYear, 2)) : null,
-=======
             state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined
                 ? detailMetric("2025 Avg", fmtPct(state.kpi.stockCount.priorYear, 2))
                 : null,
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
             latestFirst ? detailMetric("Latest 1st Count", `${latestFirst.label}: ${fmtPct(latestFirst.value, 2)}`) : null,
             latestFinal ? detailMetric("Latest Final Count", `${latestFinal.label}: ${fmtPct(latestFinal.value, 2)}`) : null
         ].filter(Boolean),
         type: "line",
         labels,
         datasets: [
-<<<<<<< HEAD
-            { label: "1st Count %", data: state.stockCount1st, borderColor: COLORS.red, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.red, spanGaps: true },
-            { label: "Final Count %", data: state.stockCountFinal, borderColor: COLORS.teal, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.teal, spanGaps: true },
-            flatLine(`Target (${fmtPct(state.kpi?.stockCount?.target ?? 99)})`, state.kpi?.stockCount?.target ?? 99, maxWeeks, COLORS.yellow, [6, 4]),
-            ...(state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined ? [flatLine(`2025 Avg (${fmtPct(state.kpi.stockCount.priorYear)})`, state.kpi.stockCount.priorYear, maxWeeks, COLORS.prior)] : [])
-=======
             {
                 label: "1st Count %",
                 data: state.stockCount1st,
@@ -1807,21 +1362,12 @@ function buildStockCountDetail() {
             ...(state.kpi?.stockCount?.priorYear !== null && state.kpi?.stockCount?.priorYear !== undefined
                 ? [flatLine(`2025 Avg (${fmtPct(state.kpi.stockCount.priorYear)})`, state.kpi.stockCount.priorYear, maxWeeks, COLORS.prior)]
                 : [])
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         ]
     };
 }
 
 function buildTkOdoDetail() {
     const tkTarget = state.kpi?.tkOdo?.target ?? 60;
-<<<<<<< HEAD
-    const tkTargetSeries = (state.tk2025 || []).map(v => v === null || v === undefined ? null : Number((v * (1 + (tkTarget / 100))).toFixed(2)));
-    const latestTk = latestEntry(state.tk2026, MONTHS);
-    const latestOdo = latestEntry(state.odo2026, MONTHS);
-    if (!(state.tk2025 || []).some(v => v !== null && v !== undefined) && !(state.tk2026 || []).some(v => v !== null && v !== undefined) && !(state.odo2026 || []).some(v => v !== null && v !== undefined)) return null;
-    return {
-        title: "Takealot & One Day Only",
-=======
     const tkTargetSeries = (state.tk2025 || []).map(value => {
         const number = asNumber(value);
         return number === null ? null : Number((number * (1 + (tkTarget / 100))).toFixed(2));
@@ -1839,7 +1385,6 @@ function buildTkOdoDetail() {
         heading: "Takealot & ODO Performance",
         title: "Takealot & One Day Only",
         note: "The dotted target line is derived from the 2025 baseline plus the growth target.",
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         hint: "This view compares 2025, 2026, One Day Only, and the target trend line.",
         metrics: [
             detailMetric("Current", fmtPct(state.kpi?.tkOdo?.current, 2)),
@@ -1851,12 +1396,6 @@ function buildTkOdoDetail() {
         type: "line",
         labels: MONTHS,
         datasets: [
-<<<<<<< HEAD
-            { label: "2025 (ZAR)", data: state.tk2025, borderColor: COLORS.blue, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.blue, spanGaps: true },
-            { label: "Target", data: tkTargetSeries, borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0, spanGaps: true },
-            { label: "2026 (ZAR)", data: state.tk2026, borderColor: COLORS.green, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.green, spanGaps: true },
-            { label: "One Day Only (ZAR)", data: state.odo2026, borderColor: COLORS.purple, backgroundColor: "transparent", borderWidth: 3, fill: false, tension: 0.35, pointRadius: 5, pointBackgroundColor: COLORS.purple, spanGaps: true }
-=======
             {
                 label: "2025 (ZAR)",
                 data: state.tk2025,
@@ -1900,16 +1439,10 @@ function buildTkOdoDetail() {
                 pointBackgroundColor: COLORS.purple,
                 spanGaps: true
             }
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         ],
         extraScales: {
             y: {
                 ticks: {
-<<<<<<< HEAD
-                    color: "#d6e1ec",
-                    font: { size: 11, weight: "600" },
-                    callback: (value) => new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", notation: "compact", maximumFractionDigits: 1 }).format(Number(value))
-=======
                     color: "#59718b",
                     font: { size: 11, weight: "700" },
                     callback: value => new Intl.NumberFormat("en-ZA", {
@@ -1918,7 +1451,6 @@ function buildTkOdoDetail() {
                         notation: "compact",
                         maximumFractionDigits: 1
                     }).format(Number(value))
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
                 }
             }
         }
@@ -1928,13 +1460,6 @@ function buildTkOdoDetail() {
 function buildLiseoIssuesDetail() {
     const issues = filterSeries(state.liseoIssues);
     if (!issues.values.length) return null;
-<<<<<<< HEAD
-    const labels = issues.labels.map(i => MONTHS[i]);
-    const latestIssues = latestEntry(issues.values, labels);
-    return {
-        title: "Liseo Issues (Lower Is Better)",
-        hint: "This chart shows the issue count trend, while the KPI score tracks year-on-year improvement.",
-=======
     const labels = issues.labels.map(index => MONTHS[index]);
     const latestIssues = latestEntry(issues.values, labels);
 
@@ -1943,29 +1468,18 @@ function buildLiseoIssuesDetail() {
         title: "Liseo Issues (Lower Is Better)",
         note: "The bars show issue count by month, while the KPI score tracks year-on-year improvement.",
         hint: "Lower issue counts are better. The score stays separate from the issue count line item.",
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         metrics: [
             detailMetric("Current Score", fmtPct(state.kpi?.liseoIssues?.current, 2)),
             detailMetric("Target Score", fmtPct(state.kpi?.liseoIssues?.target)),
             detailMetric("Ave YTD", fmtPct(state.kpi?.liseoIssues?.ave, 2)),
             latestIssues ? detailMetric("Latest Issues", `${latestIssues.label}: ${latestIssues.value}`) : null,
-<<<<<<< HEAD
-            state.kpi?.liseoIssues?.priorYear !== null && state.kpi?.liseoIssues?.priorYear !== undefined ? detailMetric("2025 Issues", String(state.kpi.liseoIssues.priorYear)) : null
-=======
             state.kpi?.liseoIssues?.priorYear !== null && state.kpi?.liseoIssues?.priorYear !== undefined
                 ? detailMetric("2025 Issues", String(state.kpi.liseoIssues.priorYear))
                 : null
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         ].filter(Boolean),
         type: "bar",
         labels,
         datasets: [
-<<<<<<< HEAD
-            { label: "Issues", data: issues.values, backgroundColor: issues.values.map(v => v === 0 ? COLORS.green : v <= 2 ? COLORS.orange : COLORS.red), borderWidth: 0 },
-            { type: "line", label: "Target (0 issues)", data: new Array(issues.values.length).fill(0), borderColor: COLORS.yellow, borderDash: [6, 4], borderWidth: 2, fill: false, pointRadius: 0 }
-        ],
-        extraScales: { y: { beginAtZero: true } }
-=======
             {
                 label: "Issues",
                 data: issues.values,
@@ -1986,20 +1500,11 @@ function buildLiseoIssuesDetail() {
         extraScales: {
             y: { beginAtZero: true }
         }
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
     };
 }
 
 function buildMonthlyStockCountDetail() {
     const values = monthlyStockCountSeries(state.monthlySC);
-<<<<<<< HEAD
-    const s = filterSeries(values);
-    if (!s.values.length) return null;
-    const labels = s.labels.map(i => MONTHS[i]);
-    const latestInfo = latestEntry(s.values, labels);
-    return {
-        title: "Monthly Stock Counts",
-=======
     const series = filterSeries(values);
     if (!series.values.length) return null;
     const labels = series.labels.map(index => MONTHS[index]);
@@ -2009,41 +1514,19 @@ function buildMonthlyStockCountDetail() {
         heading: "Monthly Stock Counts",
         title: "Monthly Stock Counts",
         note: "Bars show completed count percentage per month, with the target shown as the dotted line.",
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         hint: latestInfo ? `Latest month captured: ${latestInfo.label}.` : "Showing the completed monthly stock count checks.",
         metrics: standardMetrics(state.kpi?.monthlySC, latestInfo),
         type: "bar",
         labels,
         datasets: [
-<<<<<<< HEAD
-            { label: "Actual %", data: s.values, backgroundColor: barColors(s.values, state.kpi?.monthlySC?.target ?? 100), borderWidth: 0 },
-            flatLine(`Target (${fmtPct(state.kpi?.monthlySC?.target ?? 100)})`, state.kpi?.monthlySC?.target ?? 100, s.values.length, COLORS.yellow, [6, 4])
-=======
             { label: "Actual %", data: series.values, backgroundColor: barColors(series.values, state.kpi?.monthlySC?.target ?? 100), borderWidth: 0 },
             flatLine(`Target (${fmtPct(state.kpi?.monthlySC?.target ?? 100)})`, state.kpi?.monthlySC?.target ?? 100, series.values.length, COLORS.yellow)
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
         ]
     };
 }
 
 function buildDetailSpec(key) {
     switch (key) {
-<<<<<<< HEAD
-        case "stockTransfer": return buildMonthlyBarDetail("Stock Transfer Compliance", state.trCompliance, state.kpi?.stockTransfer);
-        case "scanning": return buildMonthlyBarDetail("Scanning Compliance", state.scanning, state.kpi?.scanning);
-        case "sheets": return buildMonthlyLineDetail("Filling Out Sheets", state.sheetsCompliance, state.kpi?.sheets, "Actual %", COLORS.teal);
-        case "dispatch": return buildMonthlyLineDetail("Dispatch Accuracy", state.dispatchAccuracy, state.kpi?.dispatch, "Actual %", COLORS.green, state.kpi?.dispatch?.priorYear);
-        case "truckJHB":
-        case "truckGeorge": return buildTruckDetail(key);
-        case "stockCount": return buildStockCountDetail();
-        case "localParts": return buildMonthlyLineDetail("Local Parts Availability", state.localParts, state.kpi?.localParts, "Current %", COLORS.blue, null, state.kpi?.localParts?.ave);
-        case "liseoRTB": return buildMonthlyLineDetail("Liseo Assembled Ready to Buy", state.liseoRTB, state.kpi?.liseoRTB, "Current %", COLORS.purple, null, state.kpi?.liseoRTB?.ave);
-        case "coverPlates": return buildMonthlyLineDetail("Cover Plates", state.coverplates, state.kpi?.coverPlates, "Current %", COLORS.orange, null, state.kpi?.coverPlates?.ave);
-        case "tkOdo": return buildTkOdoDetail();
-        case "liseoIssues": return buildLiseoIssuesDetail();
-        case "monthlySC": return buildMonthlyStockCountDetail();
-        default: return null;
-=======
         case "stockTransfer":
             return buildMonthlyBarDetail("Stock Transfer Compliance", state.trCompliance, state.kpi?.stockTransfer);
         case "scanning":
@@ -2071,19 +1554,11 @@ function buildDetailSpec(key) {
             return buildMonthlyStockCountDetail();
         default:
             return null;
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
     }
 }
 
 function renderDetailChart(spec) {
     const canvas = document.getElementById("detailChartCanvas");
-<<<<<<< HEAD
-    if (detailChart) detailChart.destroy();
-    detailChart = new Chart(canvas.getContext("2d"), { type: spec.type, data: { labels: spec.labels, datasets: polishDatasets(spec.datasets) }, options: chartOptions(spec.extraScales || {}) });
-}
-
-function renderDetail() {
-=======
     if (detailChart) {
         detailChart.destroy();
     }
@@ -2100,35 +1575,10 @@ function renderDetail() {
 
 function renderDetail() {
     const heading = document.getElementById("detailHeading");
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
     const hint = document.getElementById("detailHint");
     const statsHost = document.getElementById("detailStats");
     const chartBox = document.getElementById("detailChartBox");
     const chartTitle = document.getElementById("detailChartTitle");
-<<<<<<< HEAD
-    const closeButton = document.getElementById("detailClose");
-    if (detailChart) { detailChart.destroy(); detailChart = null; }
-    if (!state || !selectedKpiKey) {
-        hint.textContent = "Click any KPI above to open its chart and supporting metrics.";
-        statsHost.innerHTML = '<div class="detailPlaceholder">Choose a KPI card to focus on its trend and supporting numbers.</div>';
-        chartBox.style.display = "none";
-        closeButton.style.display = "none";
-        return;
-    }
-    const spec = buildDetailSpec(selectedKpiKey);
-    if (!spec) {
-        hint.textContent = "No supporting chart data is available for this KPI yet.";
-        statsHost.innerHTML = '<div class="detailPlaceholder">This KPI does not have enough history in the workbook to show a detail chart yet.</div>';
-        chartBox.style.display = "none";
-        closeButton.style.display = "inline-flex";
-        return;
-    }
-    hint.textContent = spec.hint;
-    statsHost.innerHTML = spec.metrics.map(item => `<div class="detailStat"><div class="detailStatLabel">${esc(item.label)}</div><div class="detailStatValue">${esc(item.value)}</div></div>`).join("");
-    chartTitle.textContent = spec.title;
-    chartBox.style.display = "block";
-    closeButton.style.display = "inline-flex";
-=======
     const chartNote = document.getElementById("detailChartNote");
     const placeholder = document.getElementById("detailPlaceholder");
     const closeButton = document.getElementById("detailClose");
@@ -2173,7 +1623,6 @@ function renderDetail() {
     placeholder.style.display = "none";
     chartBox.style.display = "block";
     closeButton.style.visibility = "visible";
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
     renderDetailChart(spec);
 }
 
@@ -2190,54 +1639,6 @@ function clearKpiDetail() {
     renderDetail();
 }
 
-<<<<<<< HEAD
-function renderKpis() {
-    const host = document.getElementById("kpis");
-    const items = buildKpiItems();
-    if (selectedKpiKey && !items.some(item => item.key === selectedKpiKey)) selectedKpiKey = null;
-    if (!items.length) { host.innerHTML = '<div class="empty">No KPI data available yet.</div>'; return; }
-    host.innerHTML = items.map(k => {
-        const s = metric(k.current, k.target);
-        const active = selectedKpiKey === k.key ? " active" : "";
-        return `<button type="button" class="card cardButton ${s}${active}" data-key="${esc(k.key)}"><div class="label">${esc(k.name)}</div><div class="value ${s}">${fmtPct(k.current, 2)}</div><div class="small">Target: ${fmtPct(k.target)}</div><div class="tiny">Ave YTD: ${fmtPct(k.ave, 2)}</div><div class="cardHint">Click for detail</div></button>`;
-    }).join("");
-    host.querySelectorAll(".cardButton").forEach(btn => btn.addEventListener("click", () => openKpiDetail(btn.dataset.key)));
-}
-
-function render() { renderKpis(); renderDetail(); showMeta(); }
-
-async function refresh() {
-    if (busy) return;
-    busy = true;
-    setStatus("warn", "Syncing live workbook data...");
-    try {
-        const res = await fetch(requestUrl(), { cache: "no-store" });
-        const data = await res.json();
-        if (!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
-        state = data;
-        render();
-        if (data.meta?.stale) {
-            setStatus("warn", "Workbook is busy saving. Showing the last good data for a moment.");
-        } else {
-            setStatus("", "Live workbook sync is active.");
-        }
-    } catch (err) {
-        setStatus("err", 'Live sync unavailable. Restart the launcher if needed, then try again.');
-        if (!state) {
-            document.getElementById("kpis").innerHTML = '<div class="empty">No data loaded yet.</div>';
-            document.getElementById("detailHint").textContent = "Start the data source and refresh again to load KPI detail.";
-            document.getElementById("detailStats").innerHTML = '<div class="detailPlaceholder">Detail charts will appear here once the dashboard data loads.</div>';
-            document.getElementById("detailChartBox").style.display = "none";
-            document.getElementById("detailClose").style.display = "none";
-        }
-    } finally {
-        busy = false;
-        secs = REFRESH_SEC;
-        updateCountdown();
-    }
-}
-
-=======
 function render() {
     renderKpis();
     renderDetail();
@@ -2280,7 +1681,6 @@ async function refresh() {
     }
 }
 
->>>>>>> d4f4ecf (Refresh dashboard UI theme)
 function formatCountdown(totalSeconds) {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
