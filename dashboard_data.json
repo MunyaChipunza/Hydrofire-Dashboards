@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-06-19T09:37:41.143817+02:00",
-    "generatedAt": "2026-06-19T09:37:41.167082+02:00",
+    "workbookUpdatedAt": "2026-06-19T09:44:37.990560+02:00",
+    "generatedAt": "2026-06-19T09:44:38.013209+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -31,8 +31,8 @@
     "dispatch": {
       "name": "Dispatch Accuracy",
       "target": 99.3,
-      "ave": 99.51,
-      "current": 99.85,
+      "ave": 99.48,
+      "current": 99.7,
       "priorYear": 99.04
     },
     "truckLoading": {
@@ -228,8 +228,8 @@
         "number": "4",
         "name": "Dispatch Accuracy",
         "target": 99.3,
-        "ave": 99.51,
-        "current": 99.85,
+        "ave": 99.48,
+        "current": 99.7,
         "history": [
           99.39,
           99.36,
@@ -623,7 +623,7 @@
     99.52,
     99.33,
     99.62,
-    99.85,
+    99.7,
     null,
     null,
     null,
