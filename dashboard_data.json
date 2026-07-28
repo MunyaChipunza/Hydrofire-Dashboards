@@ -2,8 +2,8 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-07-28T20:42:21.570587+02:00",
-    "generatedAt": "2026-07-28T20:42:21.593536+02:00",
+    "workbookUpdatedAt": "2026-07-28T22:06:17.244215+02:00",
+    "generatedAt": "2026-07-28T22:06:17.270708+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
@@ -31,8 +31,8 @@
     "dispatch": {
       "name": "Dispatch Accuracy",
       "target": 99.3,
-      "ave": 99.48,
-      "current": 99.7,
+      "ave": 99.49,
+      "current": 99.74,
       "priorYear": 99.04
     },
     "truckLoading": {
@@ -87,7 +87,7 @@
     "monthlySC": {
       "name": "Monthly Stock Counts",
       "target": 100.0,
-      "ave": 62.5,
+      "ave": 60.0,
       "current": 50.0,
       "priorYear": null
     }
@@ -228,8 +228,8 @@
         "number": "4",
         "name": "Dispatch Accuracy",
         "target": 99.3,
-        "ave": 99.48,
-        "current": 99.7,
+        "ave": 99.49,
+        "current": 99.74,
         "history": [
           99.39,
           99.36,
@@ -543,7 +543,7 @@
         "number": "14",
         "name": "Monthly Stock Counts",
         "target": 100.0,
-        "ave": 62.5,
+        "ave": 60.0,
         "current": 50.0,
         "history": [
           0.0,
@@ -623,7 +623,7 @@
     99.52,
     99.33,
     99.62,
-    99.7,
+    99.74,
     null,
     null,
     null,
@@ -828,7 +828,11 @@
       "a87": true,
       "completed": 50.0
     },
-    null,
+    {
+      "liseo": false,
+      "a87": true,
+      "completed": 50.0
+    },
     null,
     null,
     null,
