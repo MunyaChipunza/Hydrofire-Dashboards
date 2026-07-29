@@ -2,16 +2,16 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-07-29T09:14:55.777977+02:00",
-    "generatedAt": "2026-07-29T09:14:55.805441+02:00",
+    "workbookUpdatedAt": "2026-07-29T11:58:56.249843+02:00",
+    "generatedAt": "2026-07-29T11:58:56.287879+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
     "stockTransfer": {
       "name": "Stock Transfer Compliance",
       "target": 100.0,
-      "ave": 99.6,
-      "current": 100.0,
+      "ave": 99.45,
+      "current": 99.1,
       "priorYear": null
     },
     "scanning": {
@@ -24,43 +24,43 @@
     "sheets": {
       "name": "Filling Out Sheets",
       "target": 100.0,
-      "ave": 99.84,
+      "ave": 99.87,
       "current": 100.0,
       "priorYear": null
     },
     "dispatch": {
       "name": "Dispatch Accuracy",
       "target": 99.3,
-      "ave": 99.49,
-      "current": 99.74,
+      "ave": 99.54,
+      "current": 99.8,
       "priorYear": 99.04
     },
     "truckLoading": {
       "name": "Truck Loading Accuracy",
       "target": 99.5,
-      "ave": 96.81,
-      "current": 97.86,
+      "ave": 97.28,
+      "current": 99.07,
       "priorYear": 97.02
     },
     "stockCount": {
       "name": "Stock Count Accuracy",
       "target": 99.0,
-      "ave": 98.14,
-      "current": 98.18,
+      "ave": 98.28,
+      "current": 99.06,
       "priorYear": 98.46
     },
     "localParts": {
       "name": "Local Parts Availability",
       "target": 98.0,
-      "ave": 93.97,
-      "current": 97.95,
+      "ave": 94.29,
+      "current": 95.89,
       "priorYear": null
     },
     "liseoRTB": {
       "name": "Liseo Assembled — Ready to Buy",
       "target": 85.0,
-      "ave": 70.24,
-      "current": 81.82,
+      "ave": 69.56,
+      "current": 80.65,
       "priorYear": null
     },
     "coverPlates": {
@@ -123,8 +123,8 @@
         "number": "1",
         "name": "Stock Transfer Compliance",
         "target": 100.0,
-        "ave": 99.6,
-        "current": 100.0,
+        "ave": 99.45,
+        "current": 99.1,
         "history": [
           100.0,
           100.0,
@@ -193,7 +193,7 @@
         "number": "3",
         "name": "Filling Out Sheets",
         "target": 100.0,
-        "ave": 99.84,
+        "ave": 99.87,
         "current": 100.0,
         "history": [
           100.0,
@@ -228,8 +228,8 @@
         "number": "4",
         "name": "Dispatch Accuracy",
         "target": 99.3,
-        "ave": 99.49,
-        "current": 99.74,
+        "ave": 99.54,
+        "current": 99.8,
         "history": [
           99.39,
           99.36,
@@ -263,8 +263,8 @@
         "number": "5",
         "name": "Truck Loading Accuracy",
         "target": 99.5,
-        "ave": 96.81,
-        "current": 97.86,
+        "ave": 97.28,
+        "current": 99.07,
         "history": [
           99.22,
           97.92,
@@ -298,8 +298,8 @@
         "number": "6",
         "name": "Stock Count Accuracy",
         "target": 99.0,
-        "ave": 98.14,
-        "current": 98.18,
+        "ave": 98.28,
+        "current": 99.06,
         "history": [
           98.86,
           99.04,
@@ -333,8 +333,8 @@
         "number": "7",
         "name": "Local Parts Availability",
         "target": 98.0,
-        "ave": 93.97,
-        "current": 97.95,
+        "ave": 94.29,
+        "current": 95.89,
         "history": [
           98.63,
           99.23,
@@ -368,8 +368,8 @@
         "number": "8",
         "name": "Liseo Assembled — Ready to Buy",
         "target": 85.0,
-        "ave": 70.24,
-        "current": 81.82,
+        "ave": 69.56,
+        "current": 80.65,
         "history": [
           76.19,
           65.38,
@@ -582,7 +582,7 @@
     98.35,
     99.24,
     100.0,
-    100.0,
+    99.1,
     null,
     null,
     null,
@@ -596,7 +596,7 @@
     100.0,
     99.99,
     100.0,
-    null,
+    100.0,
     null,
     null,
     null,
@@ -610,7 +610,7 @@
     100.0,
     99.13,
     100.0,
-    null,
+    100.0,
     null,
     null,
     null,
@@ -622,9 +622,9 @@
     99.37,
     99.52,
     99.33,
-    99.62,
-    99.74,
-    null,
+    99.92,
+    99.49,
+    99.8,
     null,
     null,
     null,
@@ -643,7 +643,9 @@
     99.04,
     97.52,
     98.82,
-    97.23
+    97.23,
+    97.61,
+    98.71
   ],
   "truckGeorge": [
     93.8,
@@ -652,7 +654,10 @@
     100.0,
     84.66,
     96.23,
-    98.49
+    98.49,
+    99.76,
+    99.76,
+    99.43
   ],
   "stockCount1st": [
     91.43,
@@ -678,7 +683,11 @@
     null,
     84.18,
     81.29,
-    87.42
+    87.42,
+    87.09,
+    83.39,
+    87.44,
+    90.25
   ],
   "stockCountFinal": [
     97.48,
@@ -704,7 +713,11 @@
     null,
     95.6,
     97.19,
-    98.18
+    98.18,
+    98.68,
+    99.49,
+    98.83,
+    99.06
   ],
   "localParts": [
     null,
@@ -713,7 +726,7 @@
     92.47,
     93.84,
     97.95,
-    null,
+    95.89,
     null,
     null,
     null,
@@ -726,8 +739,8 @@
     83.33,
     54.55,
     47.92,
-    81.82,
-    null,
+    66.67,
+    80.65,
     null,
     null,
     null,
@@ -755,7 +768,7 @@
     0,
     0,
     1,
-    null,
+    0,
     null,
     null,
     null,
