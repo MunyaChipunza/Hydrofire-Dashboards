@@ -2,15 +2,15 @@
   "meta": {
     "workbookName": "Munya Scorecard.xlsm",
     "workbookPath": "Munya Scorecard.xlsm",
-    "workbookUpdatedAt": "2026-07-29T06:23:23.976414+02:00",
-    "generatedAt": "2026-07-29T06:23:23.997887+02:00",
+    "workbookUpdatedAt": "2026-07-29T09:14:55.777977+02:00",
+    "generatedAt": "2026-07-29T09:14:55.805441+02:00",
     "publishedFrom": "https://1drv.ms/x/c/80aaafa2e89450b3/IQCGWn0MzhspSZiKUTdSrvlrAX6_Vh4TRXLUmYx0Du_esIw?e=LyO68s"
   },
   "kpi": {
     "stockTransfer": {
       "name": "Stock Transfer Compliance",
       "target": 100.0,
-      "ave": 99.52,
+      "ave": 99.6,
       "current": 100.0,
       "priorYear": null
     },
@@ -123,7 +123,7 @@
         "number": "1",
         "name": "Stock Transfer Compliance",
         "target": 100.0,
-        "ave": 99.52,
+        "ave": 99.6,
         "current": 100.0,
         "history": [
           100.0,
@@ -582,7 +582,7 @@
     98.35,
     99.24,
     100.0,
-    null,
+    100.0,
     null,
     null,
     null,
