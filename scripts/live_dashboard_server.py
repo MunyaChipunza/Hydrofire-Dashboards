@@ -9,19 +9,22 @@ import shutil
 import tempfile
 import time
 import zipfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 NS = {"a": MAIN_NS, "r": REL_NS}
-SAST = ZoneInfo("Africa/Johannesburg")
+try:
+    SAST = ZoneInfo("Africa/Johannesburg")
+except ZoneInfoNotFoundError:  # pragma: no cover - depends on local Python tzdata installation
+    SAST = timezone(timedelta(hours=2), name="SAST")
 
 MONTH_INDEX = {
     "jan": 0,
@@ -70,6 +73,8 @@ CANONICAL_KPI_KEYS = {
     "coverplates": "coverPlates",
     "liseoissuesimproveyoy": "liseoIssues",
     "liseoissues": "liseoIssues",
+    "liseoassemblyleanmgmt": "leanMgmt",
+    "liseoassemblyleanmgmt1improvementeachweek25eachfortotalof100": "leanMgmt",
     "takealotandodoperformance": "tkOdo",
     "takealotodoperformance": "tkOdo",
     "tkandodogrowth": "tkOdo",
@@ -219,6 +224,9 @@ class WorkbookReader:
 
     def close(self) -> None:
         self.archive.close()
+
+    def has_sheet(self, name: str) -> bool:
+        return name in self.sheet_targets
 
     def _load_shared_strings(self) -> list[str]:
         name = "xl/sharedStrings.xml"
@@ -484,17 +492,17 @@ def extract_tk_odo(reader: WorkbookReader) -> tuple[list[float | None], list[flo
 
 def extract_monthly_sc(reader: WorkbookReader) -> list[dict[str, Any] | None]:
     rows = reader.sheet("Monthly SC")
-    _, header_map = find_header_row(rows, {"month", "liseo", "87auckland", "completed"})
+    _, header_map = find_header_row(rows, {"month", "liseo", "completed"})
     month_col = header_map["month"]
     liseo_col = header_map["liseo"]
-    a87_col = header_map["87auckland"]
+    a87_col = header_map.get("87auckland")
     completed_col = header_map["completed"]
 
     lookup = build_month_lookup(rows, month_col)
     output: list[dict[str, Any] | None] = [None for _ in range(12)]
     for slot, row in lookup.items():
         liseo_value = row_value(row, liseo_col)
-        a87_value = row_value(row, a87_col)
+        a87_value = row_value(row, a87_col) if a87_col is not None else None
         completed_value = as_percent(row_value(row, completed_col))
         if not non_empty(liseo_value) and not non_empty(a87_value) and completed_value is None:
             output[slot] = None
@@ -549,8 +557,9 @@ def extract_scorecard(reader: WorkbookReader) -> tuple[dict[str, Any], dict[str,
 
         canonical = CANONICAL_KPI_KEYS.get(normalize_label(name))
         prior_year = extract_prior_year_value(comments, canonical)
+        row_key = canonical or slugify(name)
         row_payload = {
-            "id": canonical or slugify(name),
+            "id": row_key,
             "number": str(int(safe_float(row_value(row, number_col)))) if safe_float(row_value(row, number_col)) is not None else str(row_value(row, number_col)),
             "name": name,
             "target": target,
@@ -559,18 +568,18 @@ def extract_scorecard(reader: WorkbookReader) -> tuple[dict[str, Any], dict[str,
             "history": history,
             "priorYear": prior_year,
             "comments": "" if comments is None else str(comments).strip(),
-            "key": canonical,
+            "key": row_key,
+            "canonicalKey": canonical,
         }
         scorecard_rows.append(row_payload)
 
-        if canonical:
-            kpis[canonical] = {
-                "name": name,
-                "target": target if target is not None else 0,
-                "ave": ave if ave is not None else 0,
-                "current": current if current is not None else 0,
-                "priorYear": prior_year,
-            }
+        kpis[row_key] = {
+            "name": name,
+            "target": target,
+            "ave": ave,
+            "current": current,
+            "priorYear": prior_year,
+        }
 
     return {
         "headers": history_headers,
@@ -608,11 +617,12 @@ def build_dashboard_payload(workdir: Path, workbook_name: str | None) -> dict[st
     reader = WorkbookReader(snapshot_path)
     try:
         scorecard, kpi = extract_scorecard(reader)
-        truck_jhb, truck_george = extract_truck_loads(reader)
-        stock_count_first, stock_count_final = extract_stock_count(reader)
-        liseo_issues, liseo_issue_score = extract_liseo_issues(reader)
-        tk2025, tk2026, odo2026 = extract_tk_odo(reader)
-        monthly_sc = extract_monthly_sc(reader)
+        local_parts = extract_monthly_percent_series(reader, "Local Parts") if reader.has_sheet("Local Parts") else percent_series()
+        liseo_rtb = extract_monthly_percent_series(reader, "Liseo RTB") if reader.has_sheet("Liseo RTB") else percent_series()
+        coverplates = extract_monthly_percent_series(reader, "Coverplates") if reader.has_sheet("Coverplates") else percent_series()
+        liseo_issues, liseo_issue_score = extract_liseo_issues(reader) if reader.has_sheet("Liseo Issues") else ([None] * 12, None)
+        tk2025, tk2026, odo2026 = extract_tk_odo(reader) if reader.has_sheet("TK & ODO") else (raw_series(), raw_series(), raw_series())
+        monthly_sc = extract_monthly_sc(reader) if reader.has_sheet("Monthly SC") else [None for _ in range(12)]
 
         payload = {
             "meta": {
@@ -623,17 +633,17 @@ def build_dashboard_payload(workdir: Path, workbook_name: str | None) -> dict[st
             },
             "kpi": kpi,
             "scorecard": scorecard,
-            "trCompliance": extract_monthly_percent_series(reader, "TR Compliance"),
-            "scanning": extract_monthly_percent_series(reader, "Scanning"),
-            "sheetsCompliance": extract_monthly_percent_series(reader, "Sheets Compliance"),
-            "dispatchAccuracy": extract_monthly_percent_series(reader, "Dispatch Accuracy"),
-            "truckJHB": truck_jhb,
-            "truckGeorge": truck_george,
-            "stockCount1st": stock_count_first,
-            "stockCountFinal": stock_count_final,
-            "localParts": extract_monthly_percent_series(reader, "Local Parts"),
-            "liseoRTB": extract_monthly_percent_series(reader, "Liseo RTB"),
-            "coverplates": extract_monthly_percent_series(reader, "Coverplates"),
+            "trCompliance": percent_series(),
+            "scanning": percent_series(),
+            "sheetsCompliance": percent_series(),
+            "dispatchAccuracy": percent_series(),
+            "truckJHB": [],
+            "truckGeorge": [],
+            "stockCount1st": [],
+            "stockCountFinal": [],
+            "localParts": local_parts,
+            "liseoRTB": liseo_rtb,
+            "coverplates": coverplates,
             "liseoIssues": liseo_issues,
             "liseoIssuesScore": liseo_issue_score if liseo_issue_score is not None else 100,
             "tk2025": tk2025,

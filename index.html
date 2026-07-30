@@ -941,6 +941,11 @@ function scorecardHistory(key) {
     return row?.history || [];
 }
 
+function scorecardRow(key) {
+    const rows = state?.scorecard?.rows || [];
+    return rows.find(item => item.key === key || item.id === key) || null;
+}
+
 function seriesForCard(key) {
     switch (key) {
         case "stockTransfer": return state?.trCompliance || [];
@@ -1525,6 +1530,52 @@ function buildMonthlyStockCountDetail() {
     };
 }
 
+function buildScorecardTrendDetail(key) {
+    const row = scorecardRow(key);
+    if (!row) return null;
+
+    const series = filterSeries(row.history || []);
+    if (!series.values.length) return null;
+
+    const labels = series.labels.map(index => state?.scorecard?.headers?.[index] || `Period ${index + 1}`);
+    const kpi = state?.kpi?.[key] || row;
+    const latestInfo = latestEntry(series.values, labels);
+    const lineColor = metricColor(metric(kpi?.current, kpi?.target));
+    const datasets = [
+        {
+            label: "Actual %",
+            data: series.values,
+            borderColor: lineColor,
+            backgroundColor: "transparent",
+            fill: false,
+            tension: 0.34,
+            pointRadius: 5,
+            pointBackgroundColor: lineColor
+        }
+    ];
+
+    if (kpi?.target !== null && kpi?.target !== undefined) {
+        datasets.push(flatLine(`Target (${fmtPct(kpi.target)})`, kpi.target, series.values.length, COLORS.yellow));
+    }
+    if (kpi?.ave !== null && kpi?.ave !== undefined) {
+        datasets.push(flatLine(`Ave YTD (${fmtPct(kpi.ave, 2)})`, kpi.ave, series.values.length, COLORS.purple, [3, 5]));
+    }
+    if (kpi?.priorYear !== null && kpi?.priorYear !== undefined) {
+        datasets.push(flatLine(`2025 Avg (${fmtPct(kpi.priorYear, 2)})`, kpi.priorYear, series.values.length, COLORS.prior));
+    }
+
+    return {
+        heading: row.name,
+        title: `${row.name} Fortnightly Trend`,
+        note: "This chart uses the live fortnightly history from the Scorecard tab.",
+        hint: latestInfo ? `Latest recorded period: ${latestInfo.label}.` : "Showing available scorecard periods from the workbook.",
+        metrics: standardMetrics(kpi, latestInfo, row.comments ? [detailMetric("Comments", row.comments)] : []),
+        type: "line",
+        labels,
+        datasets
+    };
+}
+
 function buildDetailSpec(key) {
     switch (key) {
         case "stockTransfer":
@@ -1553,7 +1604,7 @@ function buildDetailSpec(key) {
         case "monthlySC":
             return buildMonthlyStockCountDetail();
         default:
-            return null;
+            return buildScorecardTrendDetail(key);
     }
 }
 
